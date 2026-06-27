@@ -7,75 +7,1975 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,700;1,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<meta name="ext-resource-dependency" content="https://cdn.tailwindcss.com" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: { crimson: 'var(--color-crimson)' },
-        fontFamily: {
-          sans: ['Prompt', 'sans-serif'],
-          heading: ['Prompt', 'sans-serif'],
-          mono: ['"JetBrains Mono"', 'monospace'],
-        },
-        keyframes: {
-          marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
-          shake: { '0%,100%': { transform: 'translateX(0)' }, '20%,60%': { transform: 'translateX(-10px)' }, '40%,80%': { transform: 'translateX(10px)' } },
-        },
-        animation: {
-          marquee: 'marquee 40s linear infinite',
-          shake: 'shake 0.45s cubic-bezier(.36,.07,.19,.97)',
-        },
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: { crimson: 'var(--color-crimson)' },
+      fontFamily: {
+        sans: ['Prompt','sans-serif'],
+        heading: ['Prompt','sans-serif'],
+        mono: ['"JetBrains Mono"','monospace'],
+      },
+      keyframes: {
+        marquee: {'0%':{transform:'translateX(0)'},'100%':{transform:'translateX(-50%)'}},
+        shake:   {'0%,100%':{transform:'translateX(0)'},'20%,60%':{transform:'translateX(-10px)'},'40%,80%':{transform:'translateX(10px)'}},
+      },
+      animation: {
+        marquee: 'marquee 40s linear infinite',
+        shake:   'shake 0.45s cubic-bezier(.36,.07,.19,.97)',
       },
     },
-  };
+  },
+};
 </script>
 <style>
-  :root { --color-crimson: #e6192e; }
-  html, body { background: #080808; }
-  body { font-family: 'Prompt', sans-serif; -webkit-font-smoothing: antialiased; }
-  .fill-crimson { fill: var(--color-crimson); }
-  ::-webkit-scrollbar { width: 8px; height: 8px; }
-  ::-webkit-scrollbar-track { background: #080808; }
-  ::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--color-crimson); }
-  html { scroll-behavior: smooth; }
-  /* safe-area for notch phones */
-  .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
-  /* prevent horizontal overflow on mobile */
-  body { overflow-x: hidden; }
-  /* tap highlight */
-  * { -webkit-tap-highlight-color: transparent; }
+:root{--color-crimson:#e6192e}
+html,body{background:#080808}
+body{font-family:'Prompt',sans-serif;-webkit-font-smoothing:antialiased}
+.fill-crimson{fill:var(--color-crimson)}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#080808}
+::-webkit-scrollbar-thumb{background:#222;border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--color-crimson)}
 </style>
-<template id="__bundler_thumbnail">
-  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <rect width="100" height="100" fill="#080808"/>
-    <rect x="15" y="30" width="70" height="40" rx="4" fill="none" stroke="#e6192e" stroke-width="2.5"/>
-    <rect x="15" y="30" width="70" height="12" rx="4" fill="#e6192e"/>
-    <text x="50" y="40" font-family="sans-serif" font-size="8" fill="white" text-anchor="middle" font-weight="bold">PHOOGUN</text>
-    <rect x="22" y="50" width="20" height="14" rx="2" fill="#1a1a1a"/>
-    <rect x="46" y="50" width="20" height="14" rx="2" fill="#1a1a1a"/>
-    <rect x="70" y="50" width="10" height="6" rx="1" fill="#e6192e"/>
-  </svg>
-</template>
 </head>
 <body class="text-gray-200">
 <div id="root"></div>
-
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
-<script type="text/babel" src="phoogun/data.jsx"></script>
-<script type="text/babel" src="phoogun/sheets-api.jsx"></script>
-<script type="text/babel" src="phoogun/ui.jsx"></script>
-<script type="text/babel" src="phoogun/hero.jsx"></script>
-<script type="text/babel" src="phoogun/gallery.jsx"></script>
-<script type="text/babel" src="phoogun/sections.jsx"></script>
-<script type="text/babel" src="phoogun/admin-gallery.jsx"></script>
-<script type="text/babel" src="phoogun/admin-content.jsx"></script>
-<script type="text/babel" src="phoogun/admin-settings.jsx"></script>
-<script type="text/babel" src="phoogun/app.jsx"></script>
+// ── DATA ────────────────────────────────────────────────
+
+// ============================================================
+// PHOOGUN TATTOO — Data Layer
+// ============================================================
+
+const LOCAL = {
+  dragon: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAObOILhCxXIsTdQvYLmmUFU0pXwAWbpbmz57p94D-GIPiOja7R2mRZyL54INKOgjn9I5IJU9f3STn_zVh5n9GyOSlvUY6EhPDBRtUhKYZnNdq4omTX0_kBs58iIqjoDVY7fRBdbQcEmwn3HAzzEa5GQIkzFUL5Ccze4cjMH0QBIG6CNmE9Ax42casv2aT4K6Ipzb1t5JRJtv2JiUmZ_v7FeVoUXCjqy-gATSVGJJ98JQ4baesxguFZCV5bTY67ijYHN9AM6r6hjqI',
+  rose:   'https://lh3.googleusercontent.com/aida-public/AB6AXuCnRxnajIfCa_AovEvC6m8MAqd8seDcPTRty7tWO2nlYBxfzFBHGVYg1l403CUISfp9g6HemAFaVJOeMs0S8_y4LZKVoKSX3HVkGIUg0pvoa96FtFwI0i5O7TXo4JSJK__F4FolpeX6dWaQNcQIXbgTHNrDgg7mtvaelLavUZC8adMpCFwV9Bro65SzccDQbeZzEGzLEeiYI-vwe6w7_-bTBChRuo1TNz2kmoD86vPELIsfunGUBpuZBc93HfwfR2SauG7gJfTENDM',
+  geo:    'https://lh3.googleusercontent.com/aida-public/AB6AXuDlxFPGLwnO9FSns5hFtIgbS-QBbkTdyIg57JiB48y-HkZgS_Cq0xeMglSA65l2hW84IE01rTV129znVTEUBAhwsdrlYSum0CI0FWcdcjZYnMBuR-wMJh7v-Z3xFFIULb15om3kuxlDSa-dN7fTGuS0bdg6_O9SAahGYUmM5judb6ty4AhP9nHvyW9D7kOI4OPR2MGVfUaZcDtk75DLApJLG1RDc6kKlKqXFehavEJjXdmGCn3nmAmDulOjv_bHpwaJHORC9VGVXxk',
+  studio: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBa02lFMChvOI6gTbMjtosvVFh3oF_mIyC9e3ElkozEnNkMyT00GxFHRmusrtU8XtrEaf7K8kvQRoQHkFTkr8Xt3lWch3hu-SoWQNciuYyN0MVGPKxu6WXzlIYkpxzfaeucEzfJlEvOfUF6Jt4pW6lT2oRcyCHE8MIxZKz7klsJ152S4XlHbM7x8EfrKW4_Hd1mTLfDzHYrI89nCRoDTzX8Wz_R23R34XpnNPzMc_xbyYAI9fKug2AwkbKBV7_o2P7IaU7sBBr9Scw',
+};
+
+const REMOTE = {
+  tiger: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDgiXQmSzMHmSfD27q--n-wm5VLZU3qx_V6SIe3vY_WUkPh0cGeFJX7Kge41DWxdICukv3B568whg4WinNalEIkod1d3UaG7nlIjKO3Jhx4JASOefyuHpswIoR5xJwcv7QfXgEa2LUzBnQo_BnNtFE2bemaYRHLtnlkal-upg2ve0E-g09aTiDNfDnQfsi6d6YpDV2XVuZjLwf4XgT7hqAO1iIogYX072i2qF2AIbk90_2pLkkteaq9JkIHEPWYv_5f6KcakBC8svI',
+  skull: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDmVvp5a-O6o8eagOrQDzNhvQSJVYymrO2cBsoAGgGrxJhxq85_UdK6eOBFu-hQ8Ynw68tH0_paYXY1Vw0nomKlJFtcVxxNQQ8gbTPdggf23_GUpP_dYj2YpU2dLp3W77PEWFYn2LZsQTE6ZsQ1t3wgWKGPZGPbN9_TXFA6ebhw61i5-r3B2bVFJ5bhy8pYaCnpVlNBV-FA2MaykDVPotfRGNYS1eBfO9PqSXQ7ytr_o6hPvoBekOLYOtYeDbXNABEiIlYXutNXHFA',
+  knuckles: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCnRxnajIfCa_AovEvC6m8MAqd8seDcPTRty7tWO2nlYBxfzFBHGVYg1l403CUISfp9g6HemAFaVJOeMs0S8_y4LZKVoKSX3HVkGIUg0pvoa96FtFwI0i5O7TXo4JSJK__F4FolpeX6dWaQNcQIXbgTHNrDgg7mtvaelLavUZC8adMpCFwV9Bro65SzccDQbeZzEGzLEeiYI-vwe6w7_-bTBChRuo1TNz2kmoD86vPELIsfunGUBpuZBc93HfwfR2SauG7gJfTENDM',
+  wings: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAObOILhCxXIsTdQvYLmmUFU0pXwAWbpbmz57p94D-GIPiOja7R2mRZyL54INKOgjn9I5IJU9f3STn_zVh5n9GyOSlvUY6EhPDBRtUhKYZnNdq4omTX0_kBs58iIqjoDVY7fRBdbQcEmwn3HAzzEa5GQIkzFUL5Ccze4cjMH0QBIG6CNmE9Ax42casv2aT4K6Ipzb1t5JRJtv2JiUmZ_v7FeVoUXCjqy-gATSVGJJ98JQ4baesxguFZCV5bTY67ijYHN9AM6r6hjqI',
+  back: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBa02lFMChvOI6gTbMjtosvVFh3oF_mIyC9e3ElkozEnNkMyT00GxFHRmusrtU8XtrEaf7K8kvQRoQHkFTkr8Xt3lWch3hu-SoWQNciuYyN0MVGPKxu6WXzlIYkpxzfaeucEzfJlEvOfUF6Jt4pW6lT2oRcyCHE8MIxZKz7klsJ152S4XlHbM7x8EfrKW4_Hd1mTLfDzHYrI89nCRoDTzX8Wz_R23R34XpnNPzMc_xbyYAI9fKug2AwkbKBV7_o2P7IaU7sBBr9Scw',
+  chest: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBveLvY8WUdwu5KE677bxyMv4-xTO35bJFYmamqkomB9KgJRouEndeaYrfSL7Mb9WzuG2_piT5SDcLz7mxIrcFEf9yTRQXiz-RkkQKETl7Se16c7_Nc5gxEbdVugcPCL5CE_yetxHFZ8IUAO-oBCf8fZrUHME6q30Mo0cri8S-TmOo-d-yTs-o7pXdhiumrlpnnrb0v0gBN0f_Q2gbnPEIdW6kSOmw5gf9vPjaQwdh1_R_3J7PWWFABF8fe2uP_36awPmtqzXGJQqo',
+  geo2: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDlxFPGLwnO9FSns5hFtIgbS-QBbkTdyIg57JiB48y-HkZgS_Cq0xeMglSA65l2hW84IE01rTV129znVTEUBAhwsdrlYSum0CI0FWcdcjZYnMBuR-wMJh7v-Z3xFFIULb15om3kuxlDSa-dN7fTGuS0bdg6_O9SAahGYUmM5judb6ty4AhP9nHvyW9D7kOI4OPR2MGVfUaZcDtk75DLApJLG1RDc6kKlKqXFehavEJjXdmGCn3nmAmDulOjv_bHpwaJHORC9VGVXxk',
+};
+
+const DEFAULT_CATEGORIES = [
+  { id: 'c01', nameTh: 'ไซเบอร์-แบล็คเวิร์ค', nameEn: 'Cyber-Blackwork', slug: 'cyber-blackwork' },
+  { id: 'c02', nameTh: 'นีโอ-อิเรซูมิ', nameEn: 'Neo-Irezumi', slug: 'neo-irezumi' },
+  { id: 'c03', nameTh: 'จีโอเมตริก', nameEn: 'Geometric', slug: 'geometric' },
+  { id: 'c04', nameTh: 'ไฟน์ไลน์', nameEn: 'Fine Line', slug: 'fine-line' },
+  { id: 'c05', nameTh: 'โอเรียนทัล', nameEn: 'Oriental', slug: 'oriental' },
+  { id: 'c06', nameTh: 'ดาร์ก มินิมอล', nameEn: 'Dark Minimal', slug: 'dark-minimal' },
+  { id: 'c07', nameTh: 'อักขระ & สคริปต์', nameEn: 'Script & Lettering', slug: 'script' },
+  { id: 'c08', nameTh: 'วอเตอร์คัลเลอร์', nameEn: 'Watercolor', slug: 'watercolor' },
+  { id: 'c09', nameTh: 'ดอทเวิร์ค', nameEn: 'Dotwork', slug: 'dotwork' },
+  { id: 'c10', nameTh: 'ไบโอเมคานิคัล', nameEn: 'Biomechanical', slug: 'biomechanical' },
+  { id: 'c11', nameTh: 'แทรชโพลก้า', nameEn: 'Trash Polka', slug: 'trash-polka' },
+  { id: 'c12', nameTh: 'ทราดิชันนัล', nameEn: 'Traditional', slug: 'traditional' },
+  { id: 'c13', nameTh: 'รีอลลิสม์', nameEn: 'Realism', slug: 'realism' },
+  { id: 'c14', nameTh: 'ไทยสักยันต์', nameEn: 'Sacred Yantra', slug: 'yantra' },
+  { id: 'c15', nameTh: 'พอร์เทรต', nameEn: 'Portrait', slug: 'portrait' },
+  { id: 'c16', nameTh: 'แอนิเมะ & ป็อปอาร์ต', nameEn: 'Anime & Pop Art', slug: 'anime' },
+];
+
+const DEFAULT_ALBUMS = [
+  { id: 'a01', name: 'Signature Blackwork', descTh: 'ผลงาน Blackwork ที่เป็นเอกลักษณ์ของสตูดิโอ', promoted: true, cover: LOCAL.dragon },
+  { id: 'a02', name: 'Oriental Masters', descTh: 'ลายโอเรียนทัลและนีโออิเรซูมิระดับมาสเตอร์', promoted: true, cover: REMOTE.tiger },
+  { id: 'a03', name: 'Dark & Minimal', descTh: 'ลายสักดาร์กมินิมอลและไฟน์ไลน์', promoted: false, cover: LOCAL.rose },
+  { id: 'a04', name: 'Geometric & Cyber', descTh: 'ลายจีโอเมตริกและไซเบอร์', promoted: false, cover: LOCAL.geo },
+  { id: 'a05', name: 'Studio Showcase', descTh: 'ผลงานเด่นประจำสตูดิโอ', promoted: false, cover: LOCAL.studio },
+];
+
+const DEFAULT_ARTISTS = [
+  { id: 'art01', nameTh: 'กิม', nameEn: 'Kimm', specialty: 'Cyber-Blackwork / Geometric', experience: '8 ปี', bio_th: 'ผู้เชี่ยวชาญลาย Cyber-Blackwork และ Geometric ที่ผสมผสานเทคโนโลยีกับศิลปะ', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAygxjP4n5S3j3K8wCXwKgQ1Wqx5Oeoly0u9_-37018ci3SzUZeGbZZNsZwK0XXxTshgTGvOVPvnFDevirOKu87RcfYgzkN9rgZaqyehiHonC5f3-1eTiANKF5WFl1Qi_g9AI9mDzIMrHqM_XQSUCY5GJ8mQbc3HJOF2IHNQcZqdackfMrKEvXUp4HORZ52EAQb1V4Wd2nlw-j7B_r_ukuJfx_nwpmfeORip0zEfaGwWQrz0zTxTLvh-GZB_jPusQIIZiqfrIzOs78', available: 'จ-ศ' },
+  { id: 'art02', nameTh: 'พิมพ์ดาว', nameEn: 'Pimdao', specialty: 'Neo-Irezumi & Red Ink', experience: '6 ปี', bio_th: 'ช่างสักเชี่ยวชาญลายมังกรและ Neo-Irezumi ผสมหมึกแดงพิเศษ', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCIU2q6Q7_OPUqH_Ncw0cJc8jRD9DS7etsxWjTbZJBMs2UQSms4FMQQVfgnI9lH8QjK-scwofSxgJunM4REa0tfOKziCDWWhAvQiKJpN-nVFVK7o2D_4uzPTbgtvLs2NLUN1BBZsABXsTlHikiq6ylF5CxWsjiKWlQ1QX-7R-zfd8Z7gZsRz1V4wUfF7EV049PbEt_GvA5soKv6pF-OV2ikmTf_syyhXmk_2x5FS9EbQePbte9gxvwzPrsMKJ6y3We4oG3z7z03Zqw', available: 'ทุกวัน' },
+  { id: 'art03', nameTh: 'กวิน', nameEn: 'Kawin', specialty: 'Dark Minimal & Script', experience: '5 ปี', bio_th: 'ศิลปินด้าน Fine Line และ Script Lettering ความแม่นยำระดับไมครอน', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBF8MnRnyPu8OkIjlQ3fwbvqs6Wx0sy7p4xVLwIm8IO3lQYsdLEqVcTX1FmrN_taDXpikld8kGyQ22ojLDp-S8Gh2hMcIKSGA_t89RzwIEJ0lbrgbyKwvIn50g_zxhV6WeUutWEHooe27RTCi2Q_HvFG19B8osIi-knKJ6yyCEUs_HjeSimb6v4jWOlS6acMI6sifYr1GC_tIdcRHHU2wMLfRtdzEagdXaY1YDQxECo2VeY4kfQUunFp2rua6FWrdOzldoCpEK0J8A', available: 'พ-อา' },
+  { id: 'art04', nameTh: 'เจตน์', nameEn: 'Jay', specialty: 'Oriental & Fine Line', experience: '7 ปี', bio_th: 'ผู้เชี่ยวชาญลาย Oriental Traditional และ Fine Line ที่มีชื่อเสียงระดับนานาชาติ', imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBkfqYqHFleT42qaAdx_Gp2BLkpOiNGu49Wzzxpwp3_VU_G-3zeB2ipVe0dDkxDxkh1801TXCtQgOxxj708I-Sldw-K3IEclMaxYzZZn3JztAZuX2cAmFgFFX9VC-Ie2UygDv5zIaWxvFszdmxDRsuTiXBh1ehA1SDMETyrjLYm4ln8sTDZyeWXAzxYVaZKxOhvkoRoqhYjiM9tSYJdbLZPUXidH7jbtmbKSljkukWkK5LFBbuTt9F9pdV6mycygUPzogfB_OUIiRk', available: 'ศ-อ' },
+];
+
+const DEFAULT_IMAGES = [
+  { id: 'img01', albumId: 'a01', categoryId: 'c01', title: 'Neo Cyber Dragon Backpiece', artist: 'พิมพ์ดาว', tags: ['dragon','backpiece','cyber'], imageUrl: LOCAL.dragon, featured: true, likes: 184 },
+  { id: 'img02', albumId: 'a04', categoryId: 'c03', title: 'Circuit Geometrics Sleeve', artist: 'กิม', tags: ['sleeve','circuit','geo'], imageUrl: LOCAL.geo, featured: true, likes: 156 },
+  { id: 'img03', albumId: 'a03', categoryId: 'c06', title: 'Obsidian Rose Fine Line', artist: 'กวิน', tags: ['rose','fineline','wrist'], imageUrl: LOCAL.rose, featured: false, likes: 142 },
+  { id: 'img04', albumId: 'a05', categoryId: 'c05', title: 'Studio Workspace', artist: 'กิม', tags: ['studio','workspace'], imageUrl: LOCAL.studio, featured: false, likes: 98 },
+  { id: 'img05', albumId: 'a02', categoryId: 'c05', title: 'Crimson Forest Tiger', artist: 'เจตน์', tags: ['tiger','oriental','red'], imageUrl: REMOTE.tiger, featured: true, likes: 217 },
+  { id: 'img06', albumId: 'a01', categoryId: 'c10', title: 'Biomechanical Skull Sleeve', artist: 'กิม', tags: ['skull','biomech','sleeve'], imageUrl: REMOTE.skull, featured: true, likes: 198 },
+  { id: 'img07', albumId: 'a04', categoryId: 'c03', title: 'Linear Flow Geometry', artist: 'กิม', tags: ['geometric','linear','calf'], imageUrl: REMOTE.geo2, featured: false, likes: 113 },
+  { id: 'img08', albumId: 'a01', categoryId: 'c11', title: 'Crimson Chest Chaos', artist: 'เจตน์', tags: ['chest','red','polka'], imageUrl: REMOTE.chest, featured: false, likes: 175 },
+  { id: 'img09', albumId: 'a02', categoryId: 'c09', title: 'Sacred Back Dotwork', artist: 'พิมพ์ดาว', tags: ['dotwork','back','sacred'], imageUrl: REMOTE.back, featured: false, likes: 132 },
+  { id: 'img10', albumId: 'a01', categoryId: 'c01', title: 'Obsidian Wings Portrait', artist: 'กิม', tags: ['wings','portrait','raven'], imageUrl: REMOTE.wings, featured: true, likes: 167 },
+  { id: 'img11', albumId: 'a03', categoryId: 'c07', title: 'Gothic Knuckles Script', artist: 'กวิน', tags: ['script','knuckles','gothic'], imageUrl: REMOTE.knuckles, featured: false, likes: 144 },
+];
+
+const DEFAULT_REVIEWS = [
+  { id: 'r01', author: 'อนันดา สิริโชติ', rating: 5, message: 'งานสักดาร์กมินิมอลกับช่างกวินสวยมาก บรรยากาศดีมากครับ', artist: 'กวิน', status: 'approved', createdAt: '2026-06-07' },
+  { id: 'r02', author: 'มุกรินทร์ แก้วมณี', rating: 5, message: 'ช่างพิมพ์ดาวสักมังกรได้อลังการมาก คุ้มค่ามากๆ ค่ะ', artist: 'พิมพ์ดาว', status: 'approved', createdAt: '2026-06-08' },
+  { id: 'r03', author: 'ธนพัทธ์ เดชะ', rating: 4, message: 'งานแขนไซเบอร์กับช่างกิมเท่สุด รายละเอียดเยอะมากครับ', artist: 'กิม', status: 'approved', createdAt: '2026-06-09' },
+  { id: 'r04', author: 'สมหญิง แสงทอง', rating: 5, message: 'มาสักครั้งแรก ประทับใจมาก สะอาด ปลอดภัย ช่างพูดคุยดี', artist: 'เจตน์', status: 'approved', createdAt: '2026-06-10' },
+  { id: 'r05', author: 'แพรวพรรณ นวลจันทร์', rating: 5, message: 'ดูแกลเลอรีแล้วประทับใจมาก จะมาจองในเร็วๆ นี้ค่ะ', artist: 'กวิน', status: 'pending', createdAt: '2026-06-12' },
+];
+
+const DEFAULT_CONFIG = {
+  heroTitle: 'มิติศิลปะบนเรือนร่าง',
+  heroTitleEn: 'Body Art Dimension',
+  heroSub: 'สู่อนาคตที่หรูหราดุดัน',
+  heroSubEn: 'A Cyberpunk Gothic Saga',
+  heroDesc: 'PHOOGUN TATTOO ผสานลายสักแบบไซเบอร์แบล็คเวิร์ค ฟอนต์อักขระกอธิค และนีโออิเรซูมิ สู่ผลงานระดับพรีเมียมด้วยเครื่องมือมาตรฐานโรงพยาบาล',
+  heroDescEn: 'PHOOGUN TATTOO blends cyber-blackwork, gothic typography, and Neo-Irezumi into timeless relics crafted with medical-grade precision.',
+  aboutTitle: 'เกี่ยวกับ Phoogun Tattoo',
+  aboutTitleEn: 'About Phoogun Tattoo',
+  aboutText: 'สตูดิโอสักระดับพรีเมียมในกรุงเทพฯ ที่ผสานศิลปะดาร์กสไตล์กับเทคนิคระดับสูง ใช้อุปกรณ์สะอาดปลอดเชื้อมาตรฐานการแพทย์ทุกครั้ง',
+  aboutTextEn: 'Premium Bangkok tattoo studio blending dark art with master technique, using hospital-grade sterile equipment on every client.',
+  aboutImage: '',
+  stats: [
+    { val: '500+', th: 'ผลงานสักสำเร็จ', en: 'Tattoos Completed' },
+    { val: '8+', th: 'ปีประสบการณ์', en: 'Years Experience' },
+    { val: '4', th: 'ช่างสักมืออาชีพ', en: 'Master Artists' },
+    { val: '100%', th: 'มาตรฐานโรงพยาบาล', en: 'Hospital Grade' },
+  ],
+  mapUrl: '',
+  fbPixel: '',
+  ttPixel: '',
+  social: { facebook: '', instagram: '', tiktok: '', lineoa: '', twitter: '', phone: '' },
+};
+
+// Hero carousel slides
+const HERO_SLIDES = [
+  { image: LOCAL.dragon, label: 'Neo Cyber Dragon' },
+  { image: REMOTE.tiger, label: 'Crimson Forest Tiger' },
+  { image: LOCAL.rose, label: 'Obsidian Rose' },
+  { image: REMOTE.skull, label: 'Biomechanical Skull' },
+  { image: LOCAL.geo, label: 'Circuit Geometrics' },
+  { image: REMOTE.back, label: 'Sacred Dotwork' },
+];
+
+window.PHG_DATA = {
+  DEFAULT_CATEGORIES, DEFAULT_ALBUMS, DEFAULT_ARTISTS,
+  DEFAULT_IMAGES, DEFAULT_REVIEWS, DEFAULT_CONFIG, HERO_SLIDES,
+};
+
+
+
+// ── Sheets API stubs (configure via Admin → Pixel & ติดต่อ) ──
+const SHEETS_URL = '';
+async function loadAllFromSheets() { throw new Error('Sheets not configured'); }
+async function saveToSheets() { return { ok: true }; }
+async function submitReview(r) { return { ok: true }; }
+async function submitBooking(b) { return { ok: true }; }
+
+
+// ── UI PRIMITIVES ────────────────────────────────────────
+
+// ============================================================
+// PHOOGUN TATTOO — Shared UI primitives
+// ============================================================
+// Icon paths (24x24, stroke)
+const ICONS = {
+  grid: 'M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z',
+  image: 'M3 3h18v18H3zM3 14l5-5 4 4 3-3 5 5',
+  folder: 'M3 7h4l2-2h12v14H3zM3 11h18',
+  tag: 'M12 2l9 9-7 7L5 9V2h7zM9 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2',
+  star: 'M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 17l-5.8 3 1.1-6.5L2.5 9l6.6-.9z',
+  check: 'M20 6 9 17l-5-5',
+  x: 'M18 6 6 18M6 6l12 12',
+  plus: 'M12 5v14M5 12h14',
+  edit: 'M11 4H4v16h16v-7M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z',
+  trash: 'M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6',
+  eye: 'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6',
+  heart: 'M19 14c1.5-1.5 3-3.2 3-5.5A4.5 4.5 0 0 0 12 5a4.5 4.5 0 0 0-10 3.5c0 2.3 1.5 4 3 5.5l7 7z',
+  settings: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 0 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 0 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 4.7 15a1.6 1.6 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 0 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 9 4.7a1.6 1.6 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 0 1 2.8 2.8l-.1.1A1.6 1.6 0 0 0 19.4 15z',
+  bar: 'M18 20V10M12 20V4M6 20v-6',
+  map: 'M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3zM9 3v15M15 6v15',
+  link: 'M10 13a5 5 0 0 0 7.5.7l3-3a5 5 0 0 0-7-7L12 5',
+  phone: 'M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7 12.8 12.8 0 0 0 .7 2.8 2 2 0 0 1-.5 2.1l-1.3 1.3a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5 12.8 12.8 0 0 0 2.8.7A2 2 0 0 1 22 16.9z',
+  arrow_l: 'M15 18l-6-6 6-6',
+  arrow_r: 'M9 18l6-6-6-6',
+  arrow_up: 'M18 15l-6-6-6 6',
+  logout: 'M9 21H4V3h5M16 17l5-5-5-5M21 12H9',
+  shield: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z',
+  promote: 'M13 2L3 14h9l-1 8 10-12h-9z',
+  fb: 'M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z',
+  ig: 'M16 3H8a5 5 0 0 0-5 5v8a5 5 0 0 0 5 5h8a5 5 0 0 0 5-5V8a5 5 0 0 0-5-5zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm4.5-1.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2',
+  tt: 'M19.6 3a3 3 0 0 1-2.1-.8 3 3 0 0 1-.9-2.2h-2.5v13a1.8 1.8 0 0 1-1.8 1.8 1.8 1.8 0 0 1-1.8-1.8 1.8 1.8 0 0 1 1.8-1.8c.2 0 .4 0 .5.1V9.5c-.2 0-.4 0-.5 0a4.3 4.3 0 0 0-4.3 4.3 4.3 4.3 0 0 0 4.3 4.3 4.3 4.3 0 0 0 4.3-4.3V7.3a7.5 7.5 0 0 0 4.5 1.5V6.3A3 3 0 0 1 19.6 3z',
+  line: 'M12 2C6.5 2 2 5.9 2 10.7c0 4.7 4.5 8.7 10 8.7.5 0 1 0 1.4-.1l4.2 2.6-.9-3.5C19.6 16.5 22 13.8 22 10.7 22 5.9 17.5 2 12 2z',
+  tw: 'M23 3a10.9 10.9 0 0 1-3.1.9 4.5 4.5 0 0 0 2-2.5 9 9 0 0 1-2.9 1.1A4.5 4.5 0 0 0 11.5 7a12.8 12.8 0 0 1-9.3-4.7 4.5 4.5 0 0 0 1.4 6A4.5 4.5 0 0 1 1.6 8v.1a4.5 4.5 0 0 0 3.6 4.4 4.5 4.5 0 0 1-2 .1 4.5 4.5 0 0 0 4.2 3.1A9 9 0 0 1 1 19.5a12.8 12.8 0 0 0 6.9 2c8.3 0 12.8-6.9 12.8-12.8v-.6A9.2 9.2 0 0 0 23 3z',
+};
+
+function Icon({ name, className = 'w-5 h-5', stroke = 2 }) {
+  const d = ICONS[name] || ICONS.grid;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke}
+      strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      {d.split('M').filter(Boolean).map((seg, i) => <path key={i} d={'M' + seg} />)}
+    </svg>
+  );
+}
+
+const tx = (lang, th, en) => lang === 'TH' ? th : en;
+
+function Micro({ children, className = '' }) {
+  return <span className={`font-mono text-[10px] tracking-[0.2em] uppercase ${className}`}>{children}</span>;
+}
+
+function StarRow({ n = 5, size = 'w-3.5 h-3.5' }) {
+  return (
+    <span className="flex gap-0.5 text-crimson">
+      {[1,2,3,4,5].map(i => (
+        <Icon key={i} name="star" className={`${size} ${i <= n ? 'fill-crimson' : 'opacity-20'}`} stroke={1} />
+      ))}
+    </span>
+  );
+}
+
+function Badge({ children, tone = 'gray' }) {
+  const cls = { gray: 'bg-[#1a1a1a] border-[#2a2a2a] text-gray-400', crimson: 'bg-crimson/10 border-crimson/30 text-crimson', green: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400', amber: 'bg-amber-500/10 border-amber-500/30 text-amber-400' };
+  return <span className={`inline-flex items-center px-2 py-0.5 rounded-full border font-mono text-[9px] tracking-widest uppercase ${cls[tone]}`}>{children}</span>;
+}
+
+function Panel({ children, className = '' }) {
+  return <div className={`bg-[#111] border border-[#222] rounded-2xl ${className}`}>{children}</div>;
+}
+
+function Btn({ children, onClick, variant = 'primary', size = 'md', className = '', disabled = false, type = 'button' }) {
+  const v = {
+    primary: 'bg-crimson hover:bg-red-600 text-white shadow-[0_0_15px_rgba(230,25,46,0.3)]',
+    outline: 'bg-transparent border border-[#333] hover:border-crimson text-gray-300 hover:text-white',
+    ghost: 'bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white',
+    danger: 'bg-rose-500/10 border border-rose-500/30 text-rose-400 hover:bg-rose-500/20',
+  };
+  const s = { sm: 'px-3 py-1.5 text-[10px]', md: 'px-5 py-2.5 text-xs', lg: 'px-7 py-3.5 text-sm' };
+  return (
+    <button type={type} onClick={onClick} disabled={disabled}
+      className={`font-heading font-bold tracking-widest uppercase rounded-full transition cursor-pointer flex items-center gap-2 ${v[variant]} ${s[size]} ${disabled ? 'opacity-40 cursor-not-allowed' : ''} ${className}`}>
+      {children}
+    </button>
+  );
+}
+
+function Input({ label, value, onChange, placeholder = '', type = 'text', mono = false }) {
+  return (
+    <div className="space-y-1.5">
+      {label && <Micro className="block text-gray-500">{label}</Micro>}
+      <input type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
+        className={`w-full bg-black/60 border border-[#2a2a2a] focus:border-crimson/50 outline-none rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 transition ${mono ? 'font-mono' : 'font-sans'}`} />
+    </div>
+  );
+}
+
+function Textarea({ label, value, onChange, placeholder = '', rows = 3 }) {
+  return (
+    <div className="space-y-1.5">
+      {label && <Micro className="block text-gray-500">{label}</Micro>}
+      <textarea value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={rows}
+        className="w-full bg-black/60 border border-[#2a2a2a] focus:border-crimson/50 outline-none rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 transition resize-none font-sans" />
+    </div>
+  );
+}
+
+// Toast hook
+function useToast() {
+  const [toasts, setToasts] = useState([]);
+  const push = useCallback((title, msg, type = 'info') => {
+    const id = `t${Date.now()}`;
+    setToasts(p => [...p, { id, title, msg, type }]);
+    setTimeout(() => setToasts(p => p.filter(t => t.id !== id)), 4000);
+  }, []);
+  const dismiss = useCallback(id => setToasts(p => p.filter(t => t.id !== id)), []);
+  return { toasts, push, dismiss };
+}
+
+function ToastStack({ toasts, dismiss }) {
+  const colors = { success: 'border-emerald-500/30 text-emerald-400', error: 'border-rose-500/30 text-rose-400', info: 'border-sky-500/30 text-sky-400', warning: 'border-amber-500/30 text-amber-400' };
+  return (
+    <div className="fixed bottom-20 sm:bottom-5 right-3 sm:right-5 z-[100] flex flex-col gap-2 w-[calc(100vw-1.5rem)] sm:max-w-sm pointer-events-none">
+      {toasts.map(t => (
+        <div key={t.id} className={`flex gap-3 p-4 rounded-2xl border bg-neutral-950/95 backdrop-blur shadow-xl pointer-events-auto ${colors[t.type]}`}>
+          <div className="flex-1">
+            <p className="font-heading font-black text-xs uppercase tracking-wider text-white">{t.title}</p>
+            <p className="font-sans text-[11px] text-gray-400 mt-0.5 leading-relaxed">{t.msg}</p>
+          </div>
+          <button onClick={() => dismiss(t.id)} className="text-gray-600 hover:text-white transition cursor-pointer shrink-0">✕</button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+
+
+// ── HERO SECTION ─────────────────────────────────────────
+
+// ============================================================
+// Hero Carousel Section
+// ============================================================
+function HeroSection({ lang, config, heroSlides: slidesProp, onBookClick, onGalleryClick }) {
+  const slides = (slidesProp && slidesProp.length > 0) ? slidesProp : window.PHG_DATA.HERO_SLIDES;
+  const [cur, setCur] = useState(0);
+  const [fading, setFading] = useState(false);
+  const timerRef = useRef(null);
+
+  const goTo = useCallback((idx) => {
+    setFading(true);
+    setTimeout(() => {
+      setCur((idx + slides.length) % slides.length);
+      setFading(false);
+    }, 350);
+  }, [slides.length]);
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => goTo(cur + 1), 5000);
+    return () => clearInterval(timerRef.current);
+  }, [cur, goTo]);
+
+  const slide = slides[cur];
+
+  return (
+    <section id="hero" className="relative w-full" style={{ height: 'min(92vh, 860px)' }}>
+      {/* Background image with fade */}
+      <div className="absolute inset-0 overflow-hidden">
+        <img key={slide.image} src={slide.image} alt=""
+          className="w-full h-full object-cover transition-opacity duration-700"
+          style={{ opacity: fading ? 0 : 1 }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/70 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/60 via-transparent to-transparent" />
+        {/* Grid overlay */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none"
+          style={{ backgroundImage: 'linear-gradient(to right,#222 1px,transparent 1px),linear-gradient(to bottom,#222 1px,transparent 1px)', backgroundSize: '64px 64px' }} />
+      </div>
+
+      {/* Content */}
+      <div className="relative h-full flex flex-col justify-end pb-14 sm:pb-20 lg:pb-24 px-5 sm:px-10 lg:px-20 max-w-7xl mx-auto">
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-crimson/10 border border-crimson/30 rounded-full w-fit mb-5">
+          <span className="w-1.5 h-1.5 rounded-full bg-crimson animate-pulse" />
+          <Micro className="text-crimson">Premium Dark Arts Guild · Bangkok</Micro>
+        </div>
+
+        {/* Title */}
+        <h1 className="font-heading font-black uppercase leading-[1.0] text-4xl sm:text-6xl lg:text-8xl text-white mb-4" style={{ textShadow: '0 4px 40px rgba(0,0,0,0.8)' }}>
+          <span style={{ transition: 'opacity .7s', opacity: fading ? 0 : 1 }}>
+            {tx(lang, config.heroTitle, config.heroTitleEn)}
+          </span>
+          <br />
+          <em className="not-italic text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg,#e6192e,#ff6b6b,#e6192e)', transition: 'opacity .7s', opacity: fading ? 0 : 1 }}>
+            {tx(lang, config.heroSub, config.heroSubEn)}
+          </em>
+        </h1>
+
+        <p className="text-gray-300 text-xs sm:text-base lg:text-lg max-w-2xl leading-relaxed mb-6 sm:mb-8 line-clamp-3 sm:line-clamp-none" style={{ transition: 'opacity .7s', opacity: fading ? 0 : 1 }}>
+          {tx(lang, config.heroDesc, config.heroDescEn)}
+        </p>
+
+        {/* CTAs */}
+        <div className="flex flex-wrap gap-2 sm:gap-4">
+          <Btn onClick={onBookClick} variant="primary" size="md" className="sm:!px-7 sm:!py-3.5 sm:!text-sm">
+            <Icon name="phone" className="w-4 h-4" />
+            {tx(lang, 'จองคิวสักเลย', 'Book Now')}
+          </Btn>
+          <Btn onClick={onGalleryClick} variant="outline" size="md" className="sm:!px-7 sm:!py-3.5 sm:!text-sm">
+            <Icon name="image" className="w-4 h-4" />
+            {tx(lang, 'ดูผลงาน', 'View Portfolio')}
+          </Btn>
+        </div>
+      </div>
+
+      {/* Prev/Next arrows — hidden on mobile (swipe area too small) */}
+      <button onClick={() => goTo(cur - 1)}
+        className="flex absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/50 hover:bg-black/80 border border-[#333] text-white items-center justify-center transition cursor-pointer z-10">
+        <Icon name="arrow_l" className="w-5 h-5" />
+      </button>
+      <button onClick={() => goTo(cur + 1)}
+        className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 hover:bg-black/80 border border-[#333] text-white items-center justify-center transition cursor-pointer z-10">
+        <Icon name="arrow_r" className="w-5 h-5" />
+      </button>
+
+      {/* Dot indicators */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {slides.map((_, i) => (
+          <button key={i} onClick={() => goTo(i)}
+            className={`rounded-full transition-all cursor-pointer ${i === cur ? 'w-6 h-2 bg-crimson' : 'w-2 h-2 bg-white/30 hover:bg-white/60'}`} />
+        ))}
+      </div>
+
+      {/* Slide label */}
+      <div className="absolute bottom-6 right-6 z-10">
+        <Micro className="text-gray-500">{slide.label}</Micro>
+      </div>
+    </section>
+  );
+}
+
+
+
+// ── GALLERY SECTION ──────────────────────────────────────
+
+// ============================================================
+// Gallery Section + Image Modal
+// ============================================================
+function GallerySection({ lang, images, categories, albums }) {
+  const [selCat, setSelCat] = useState('all');
+  const [selAlbum, setSelAlbum] = useState('all');
+  const [query, setQuery] = useState('');
+  const [modalImg, setModalImg] = useState(null);
+  const [sort, setSort] = useState('popular');
+
+  // Featured promoted albums strip
+  const promoted = albums.filter(a => a.promoted);
+
+  const filtered = useMemo(() => {
+    let list = images.filter(img => img.imageUrl);
+    if (selCat !== 'all') list = list.filter(i => i.categoryId === selCat);
+    if (selAlbum !== 'all') list = list.filter(i => i.albumId === selAlbum);
+    if (query.trim()) {
+      const q = query.toLowerCase();
+      list = list.filter(i => i.title.toLowerCase().includes(q) || i.artist.toLowerCase().includes(q) || (i.tags || []).some(t => t.includes(q)));
+    }
+    return sort === 'popular' ? [...list].sort((a, b) => (b.likes || 0) - (a.likes || 0)) : list;
+  }, [images, selCat, selAlbum, query, sort]);
+
+  const getCatName = id => {
+    const c = categories.find(c => c.id === id);
+    return c ? tx(lang, c.nameTh, c.nameEn) : '';
+  };
+
+  return (
+    <section id="gallery" className="bg-[#080808] py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto space-y-10">
+
+        {/* Promoted albums strip */}
+        {promoted.length > 0 && (
+          <div>
+            <Micro className="text-crimson/80 block mb-3">{tx(lang, 'อัลบั้มแนะนำ', 'Featured Albums')}</Micro>
+            <div className="flex gap-4 overflow-x-auto pb-2">
+              {promoted.map(a => (
+                <button key={a.id} onClick={() => setSelAlbum(a.id === selAlbum ? 'all' : a.id)}
+                  className={`shrink-0 relative w-48 h-28 rounded-2xl overflow-hidden border-2 transition cursor-pointer ${selAlbum === a.id ? 'border-crimson' : 'border-[#222] hover:border-[#444]'}`}>
+                  <img src={a.cover} alt={a.name} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <div className="absolute bottom-0 left-0 p-3">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <Icon name="promote" className="w-3 h-3 text-amber-400" />
+                      <Micro className="text-amber-400">Featured</Micro>
+                    </div>
+                    <p className="font-heading text-xs font-bold text-white uppercase">{a.name}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Header + search + sort */}
+        <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-6 justify-between">
+          <div>
+            <Micro className="text-crimson/80">{tx(lang, 'พอร์ตโฟลิโอ', 'Portfolio')}</Micro>
+            <h2 className="font-heading text-3xl sm:text-4xl font-black text-white uppercase mt-1 flex items-center gap-3">
+              <span className="w-3 h-3 bg-crimson rounded-sm" />
+              {tx(lang, 'ผลงานสักทั้งหมด', 'Master Gallery')}
+            </h2>
+          </div>
+          <div className="flex gap-3 flex-wrap w-full lg:w-auto">
+            <input value={query} onChange={e => setQuery(e.target.value)}
+              placeholder={tx(lang, 'ค้นหาผลงาน...', 'Search works...')}
+              className="bg-[#111] border border-[#222] focus:border-crimson/40 outline-none rounded-full px-4 py-2 text-sm text-white placeholder:text-gray-600 transition flex-1 min-w-0 lg:w-52" />
+            <select value={sort} onChange={e => setSort(e.target.value)}
+              className="bg-[#111] border border-[#222] text-gray-300 text-xs font-mono uppercase tracking-widest rounded-full px-4 py-2 outline-none cursor-pointer shrink-0">
+              <option value="popular">{tx(lang, 'ยอดนิยม', 'Popular')}</option>
+              <option value="newest">{tx(lang, 'ล่าสุด', 'Newest')}</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Category filter pills — scrollable on mobile */}
+        <div className="-mx-4 sm:mx-0 px-4 sm:px-0 overflow-x-auto">
+          <div className="flex gap-2 pb-1 min-w-max sm:min-w-0 sm:flex-wrap">
+            <button onClick={() => setSelCat('all')}
+              className={`font-mono text-[10px] tracking-widest uppercase px-3.5 py-1.5 rounded-full border transition cursor-pointer whitespace-nowrap ${selCat==='all'?'bg-crimson border-crimson text-white':'border-[#2a2a2a] text-gray-400 hover:text-white hover:border-[#444]'}`}>
+              {tx(lang,'ทั้งหมด','All')}
+            </button>
+            {categories.map(c => (
+              <button key={c.id} onClick={() => setSelCat(c.id===selCat?'all':c.id)}
+                className={`font-mono text-[10px] tracking-widest uppercase px-3.5 py-1.5 rounded-full border transition cursor-pointer whitespace-nowrap ${selCat===c.id?'bg-crimson border-crimson text-white':'border-[#2a2a2a] text-gray-400 hover:text-white hover:border-[#444]'}`}>
+                {tx(lang,c.nameTh,c.nameEn)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Gallery grid — 1 col mobile, 2 col sm, 3 col md, 4 col lg */}
+        <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
+          {filtered.map(img => (
+            <div key={img.id} onClick={() => setModalImg(img)}
+              className="break-inside-avoid relative group rounded-xl overflow-hidden cursor-pointer border border-[#222] hover:border-crimson/40 transition-all duration-300">
+              <img src={img.imageUrl} alt={img.title} className="w-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <p className="font-heading text-xs font-bold text-white uppercase leading-tight">{img.title}</p>
+                <div className="flex items-center justify-between mt-1.5">
+                  <Micro className="text-gray-400">{img.artist}</Micro>
+                  <span className="flex items-center gap-1 text-crimson">
+                    <Icon name="heart" className="w-3 h-3" /><Micro className="text-crimson">{img.likes}</Micro>
+                  </span>
+                </div>
+              </div>
+              {img.featured && (
+                <div className="absolute top-2 left-2">
+                  <span className="bg-crimson text-white font-mono text-[8px] tracking-widest uppercase px-2 py-0.5 rounded">Featured</span>
+                </div>
+              )}
+            </div>
+          ))}
+          {filtered.length === 0 && (
+            <div className="col-span-4 text-center py-20 text-gray-600">
+              <Icon name="image" className="w-10 h-10 mx-auto mb-3 opacity-30" />
+              <p className="font-mono text-xs">{tx(lang, 'ไม่พบผลงาน', 'No results found')}</p>
+            </div>
+          )}
+        </div>
+
+        <p className="font-mono text-[10px] text-gray-600 text-center">{filtered.length} {tx(lang, 'ผลงาน', 'works')}</p>
+      </div>
+
+      {/* Image Modal */}
+      {modalImg && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-black/90 backdrop-blur-sm" onClick={() => setModalImg(null)}>
+          <div className="relative w-full sm:max-w-4xl bg-[#0e0e0e] border border-[#222] sm:rounded-2xl rounded-t-2xl overflow-hidden shadow-2xl max-h-[95vh] sm:max-h-none flex flex-col" onClick={e => e.stopPropagation()}>
+            {/* close */}
+            <button onClick={() => setModalImg(null)}
+              className="absolute top-3 right-3 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/70 border border-[#333] text-white flex items-center justify-center hover:border-crimson transition cursor-pointer">
+              <Icon name="x" className="w-4 h-4" />
+            </button>
+            <div className="flex flex-col lg:flex-row overflow-y-auto">
+              <div className="lg:w-3/5 bg-black">
+                <img src={modalImg.imageUrl} alt={modalImg.title} className="w-full max-h-[40vh] sm:max-h-[55vh] lg:max-h-[80vh] object-contain" />
+              </div>
+              <div className="lg:w-2/5 p-4 sm:p-6 flex flex-col gap-3 sm:gap-4">
+                <div>
+                  <Micro className="text-crimson/80 block mb-1">{getCatName(modalImg.categoryId)}</Micro>
+                  <h3 className="font-heading text-xl font-black text-white uppercase">{modalImg.title}</h3>
+                  <p className="font-mono text-xs text-gray-400 mt-1">{tx(lang, 'โดยช่าง', 'by')} {modalImg.artist}</p>
+                </div>
+                <div className="flex items-center gap-2 text-crimson">
+                  <Icon name="heart" className="w-4 h-4 fill-crimson" />
+                  <span className="font-mono text-sm text-white">{modalImg.likes}</span>
+                  <Micro className="text-gray-500">{tx(lang, 'ไลค์', 'likes')}</Micro>
+                </div>
+                <div>
+                  <Micro className="text-gray-500 block mb-2">{tx(lang, 'แท็ก', 'Tags')}</Micro>
+                  <div className="flex flex-wrap gap-2">
+                    {(modalImg.tags || []).map(t => (
+                      <Badge key={t}>#{t}</Badge>
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-auto pt-3 sm:pt-4 border-t border-[#1f1f1f]">
+                  <Btn onClick={() => { setModalImg(null); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }} variant="primary" className="w-full justify-center">
+                    <Icon name="phone" className="w-4 h-4" />
+                    {tx(lang, 'จองลายนี้', 'Book this style')}
+                  </Btn>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+
+
+// ── PUBLIC SECTIONS (About/Reviews/Contact/Footer) ───────
+
+// ============================================================
+// About, Reviews, Contact, Map, Footer sections
+// ============================================================
+function AboutSection({ lang, config, artists }) {
+  const stats = config.stats || [
+    { val: '500+', th: 'ผลงานสักสำเร็จ', en: 'Tattoos Completed' },
+    { val: '8+', th: 'ปีประสบการณ์', en: 'Years Experience' },
+    { val: '4', th: 'ช่างสักมืออาชีพ', en: 'Master Artists' },
+    { val: '100%', th: 'มาตรฐานโรงพยาบาล', en: 'Hospital Grade' },
+  ];
+  const studioImg = config.aboutImage || 'ink-passport/images/studio-workspace.png';
+
+  return (
+    <section id="about" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#0a0a0a] border-t border-[#1a1a1a]">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center mb-12 sm:mb-20">
+          <div>
+            <Micro className="text-crimson/80 block mb-3">{tx(lang, 'เกี่ยวกับเรา', 'About Us')}</Micro>
+            <h2 className="font-heading text-4xl font-black text-white uppercase leading-tight mb-6">
+              <span className="w-3 h-3 bg-crimson rounded-sm inline-block mr-3" />
+              {tx(lang, config.aboutTitle, config.aboutTitleEn)}
+            </h2>
+            <p className="text-gray-400 text-base leading-relaxed mb-8">{tx(lang, config.aboutText, config.aboutTextEn)}</p>
+            <div className="grid grid-cols-2 gap-3">
+              {stats.map((s, i) => (
+                <div key={i} className="bg-[#111] border border-[#222] rounded-xl sm:rounded-2xl p-4 sm:p-5">
+                  <div className="font-heading text-2xl sm:text-3xl font-black text-crimson">{s.val}</div>
+                  <Micro className="text-gray-500 block mt-1">{tx(lang, s.th, s.en)}</Micro>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative">
+            <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-crimson to-transparent rounded" />
+            <img src={studioImg} alt="Studio" className="w-full rounded-2xl border border-[#222] object-cover" style={{ maxHeight: 420 }} onError={e => { e.target.src = 'ink-passport/images/studio-workspace.png'; }} />
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-[#0a0a0a]/60 to-transparent pointer-events-none" />
+          </div>
+        </div>
+
+        {/* Artists */}
+        <div>
+          <Micro className="text-crimson/80 block mb-3">{tx(lang, 'ทีมช่างสัก', 'Our Artists')}</Micro>
+          <h3 className="font-heading text-2xl font-black text-white uppercase mb-8 flex items-center gap-2">
+            <span className="w-2 h-2 bg-crimson rounded-sm" />{tx(lang, 'ช่างสักฝีมือ', 'Master Artists')}
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {artists.map(a => (
+              <div key={a.id} className="bg-[#111] border border-[#222] rounded-2xl overflow-hidden hover:border-crimson/40 transition group">
+                <div className="relative h-56 overflow-hidden">
+                  <img src={a.imageUrl} alt={a.nameEn} referrerPolicy="no-referrer" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <div className="absolute bottom-3 left-3">
+                    <Badge tone="crimson">{a.available}</Badge>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <h4 className="font-heading font-bold text-white uppercase">{tx(lang, a.nameTh, a.nameEn)}</h4>
+                  <p className="font-mono text-[10px] text-crimson tracking-widest mt-0.5">{a.specialty}</p>
+                  <p className="text-gray-500 text-xs mt-2 leading-relaxed">{a.bio_th}</p>
+                  <Micro className="text-gray-600 block mt-2">{a.experience}</Micro>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ReviewsSection({ lang, reviews, artists, onSubmitReview }) {
+  const [form, setForm] = useState({ author: '', rating: 5, message: '', artist: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const f = (k, v) => setForm(p => ({ ...p, [k]: v }));
+
+  const submit = e => {
+    e.preventDefault();
+    if (!form.author.trim() || !form.message.trim()) return;
+    if (onSubmitReview) {
+      onSubmitReview({ ...form, id: `r${Date.now()}`, status: 'pending', createdAt: new Date().toISOString().split('T')[0] });
+    }
+    setSubmitted(true);
+    setForm({ author: '', rating: 5, message: '', artist: '' });
+    setTimeout(() => setSubmitted(false), 4000);
+  };
+
+  const approved = reviews.filter(r => r.status === 'approved');
+  const avg = approved.length ? (approved.reduce((s, r) => s + r.rating, 0) / approved.length).toFixed(1) : '5.0';
+
+  return (
+    <section id="reviews" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#080808] border-t border-[#1a1a1a]">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <Micro className="text-crimson/80 block mb-3">{tx(lang, 'รีวิวจากลูกค้า', 'Client Reviews')}</Micro>
+          <h2 className="font-heading text-4xl font-black text-white uppercase flex items-center justify-center gap-3">
+            <span className="w-3 h-3 bg-crimson rounded-sm" />{tx(lang, 'เสียงจากลูกค้า', 'Testimonials')}
+          </h2>
+          <div className="flex items-center justify-center gap-3 mt-4">
+            <StarRow n={5} size="w-5 h-5" />
+            <span className="font-heading text-2xl font-black text-white">{avg}</span>
+            <Micro className="text-gray-500">{tx(lang, `จาก ${approved.length} รีวิว`, `from ${approved.length} reviews`)}</Micro>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {approved.map(r => (
+            <div key={r.id} className="bg-[#111] border border-[#222] rounded-2xl p-6 hover:border-[#333] transition">
+              <div className="flex items-start justify-between gap-3 mb-4">
+                <div>
+                  <p className="font-heading text-sm font-bold text-white">{r.author}</p>
+                  {r.artist && <Micro className="text-gray-500 block mt-0.5">{tx(lang, 'ช่าง', 'Artist')}: {r.artist}</Micro>}
+                </div>
+                <StarRow n={r.rating} />
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed">"{r.message}"</p>
+              <Micro className="text-gray-700 block mt-4">{r.createdAt}</Micro>
+            </div>
+          ))}
+        </div>
+
+        {/* Public review submission form */}
+        <div className="mt-16 max-w-2xl mx-auto">
+          <div className="text-center mb-6">
+            <Micro className="text-crimson/80 block mb-2">{tx(lang, 'แชร์ประสบการณ์', 'Share Your Experience')}</Micro>
+            <h3 className="font-heading text-xl font-black text-white uppercase">{tx(lang, 'เขียนรีวิว', 'Write a Review')}</h3>
+          </div>
+          {submitted ? (
+            <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-8 text-center">
+              <Icon name="check" className="w-10 h-10 text-emerald-400 mx-auto mb-3" />
+              <p className="font-heading font-bold text-white uppercase">{tx(lang, 'ขอบคุณสำหรับรีวิว!', 'Thank you for your review!')}</p>
+              <p className="text-gray-400 text-sm mt-2">{tx(lang, 'รีวิวของคุณรอการอนุมัติจากทีมงาน', 'Your review is pending approval')}</p>
+            </div>
+          ) : (
+            <form onSubmit={submit} className="bg-[#111] border border-[#222] rounded-2xl p-6 space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <Micro className="text-gray-500 block">{tx(lang, 'ชื่อของคุณ *', 'Your Name *')}</Micro>
+                  <input value={form.author} onChange={e => f('author', e.target.value)} required
+                    className="w-full bg-black/60 border border-[#2a2a2a] focus:border-crimson/50 outline-none rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 transition"
+                    placeholder={tx(lang, 'ชื่อ-นามสกุล', 'Full Name')} />
+                </div>
+                <div className="space-y-1.5">
+                  <Micro className="text-gray-500 block">{tx(lang, 'ช่างที่ใช้บริการ', 'Artist')}</Micro>
+                  <select value={form.artist} onChange={e => f('artist', e.target.value)}
+                    className="w-full bg-black/60 border border-[#2a2a2a] text-gray-300 text-sm rounded-xl px-4 py-3 outline-none cursor-pointer focus:border-crimson/50 transition">
+                    <option value="">{tx(lang, 'เลือกช่างสัก', 'Select artist')}</option>
+                    {(artists || []).map(a => <option key={a.id} value={a.nameTh}>{tx(lang, a.nameTh, a.nameEn)}</option>)}
+                  </select>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Micro className="text-gray-500 block">{tx(lang, 'คะแนน', 'Rating')}</Micro>
+                <div className="flex gap-2">
+                  {[1,2,3,4,5].map(n => (
+                    <button key={n} type="button" onClick={() => f('rating', n)}
+                      className={`w-10 h-10 rounded-xl border transition cursor-pointer font-heading font-bold text-sm ${form.rating >= n ? 'bg-crimson border-crimson text-white' : 'border-[#2a2a2a] text-gray-500 hover:text-white'}`}>
+                      {n}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <Micro className="text-gray-500 block">{tx(lang, 'รีวิวของคุณ *', 'Your Review *')}</Micro>
+                <textarea value={form.message} onChange={e => f('message', e.target.value)} required rows={3}
+                  className="w-full bg-black/60 border border-[#2a2a2a] focus:border-crimson/50 outline-none rounded-xl px-4 py-3 text-sm text-white placeholder:text-gray-600 transition resize-none"
+                  placeholder={tx(lang, 'บอกเล่าประสบการณ์การสักกับเรา...', 'Tell us about your tattoo experience...')} />
+              </div>
+              <Btn type="submit" variant="primary" className="w-full justify-center">
+                <Icon name="star" className="w-4 h-4" />{tx(lang, 'ส่งรีวิว', 'Submit Review')}
+              </Btn>
+            </form>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ContactSection({ lang, config }) {
+  const s = config.social || {};
+  const socials = [
+    { key: 'facebook', icon: 'fb', label: 'Facebook', color: 'hover:text-blue-400' },
+    { key: 'instagram', icon: 'ig', label: 'Instagram', color: 'hover:text-pink-400' },
+    { key: 'tiktok', icon: 'tt', label: 'TikTok', color: 'hover:text-white' },
+    { key: 'lineoa', icon: 'line', label: 'LINE OA', color: 'hover:text-green-400' },
+    { key: 'twitter', icon: 'tw', label: 'X / Twitter', color: 'hover:text-sky-400' },
+    { key: 'phone', icon: 'phone', label: tx(lang, 'โทรศัพท์', 'Phone'), color: 'hover:text-crimson' },
+  ];
+
+  return (
+    <section id="contact" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#0a0a0a] border-t border-[#1a1a1a]">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <Micro className="text-crimson/80 block mb-3">{tx(lang, 'ติดต่อเรา', 'Get in Touch')}</Micro>
+          <h2 className="font-heading text-4xl font-black text-white uppercase flex items-center justify-center gap-3">
+            <span className="w-3 h-3 bg-crimson rounded-sm" />{tx(lang, 'ช่องทางติดต่อ', 'Contact Us')}
+          </h2>
+          <p className="text-gray-500 text-sm mt-3 font-mono">{tx(lang, 'เปิดให้บริการ 12:00–21:00 น. (หยุดพฤหัสบดี)', 'Open 12:00–21:00 (Closed Thursday)')}</p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+          {/* Social icons */}
+          <div className="space-y-6">
+            <p className="font-heading text-sm font-bold text-white uppercase">{tx(lang, 'โซเชียลมีเดีย', 'Social Media')}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {socials.map(({ key, icon, label, color }) => (
+                <a key={key} href={s[key] || '#'}
+                  className={`flex items-center gap-3 bg-[#111] border border-[#222] rounded-2xl p-4 text-gray-400 ${color} hover:border-[#333] transition group cursor-pointer`}>
+                  <Icon name={icon} className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <div>
+                    <p className="font-heading text-xs font-bold uppercase">{label}</p>
+                    <Micro className="text-gray-600">{s[key] ? s[key].replace(/https?:\/\/(www\.)?/, '').split('/')[0] : tx(lang, 'ตั้งค่าใน Admin', 'Set in Admin')}</Micro>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Map */}
+          <div className="space-y-4">
+            <p className="font-heading text-sm font-bold text-white uppercase">{tx(lang, 'ที่ตั้งสตูดิโอ', 'Studio Location')}</p>
+            <div className="w-full h-56 sm:h-72 rounded-2xl overflow-hidden border border-[#222] bg-[#111] flex items-center justify-center">
+              {config.mapUrl ? (
+                <iframe src={config.mapUrl} width="100%" height="100%" style={{ border: 0 }}
+                  allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Studio Map" />
+              ) : (
+                <div className="text-center text-gray-600 p-8">
+                  <Icon name="map" className="w-10 h-10 mx-auto mb-3 opacity-30" />
+                  <p className="font-mono text-xs">{tx(lang, 'ตั้งค่า Google Maps URL ใน Admin', 'Set Google Maps URL in Admin')}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer({ lang }) {
+  return (
+    <footer className="bg-[#050505] border-t border-[#1a1a1a] py-8 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <span className="w-7 h-7 rounded-tr-md rounded-bl-md bg-crimson flex items-center justify-center font-heading text-sm font-bold text-white">P</span>
+          <span className="font-heading text-sm font-bold text-white tracking-widest uppercase">Phoogun Tattoo</span>
+        </div>
+        <Micro className="text-gray-700">© 2026 Phoogun Tattoo · Premium Dark Arts · Bangkok</Micro>
+        <Micro className="text-gray-700">{tx(lang, 'ศิลปะบนเรือนร่าง', 'Body Art Dimension')}</Micro>
+      </div>
+    </footer>
+  );
+}
+
+
+
+// ── ADMIN: SHARED MODAL + IMAGE/ALBUM GRID ───────────────
+
+// ============================================================
+// Admin CMS — Gallery & Albums (Card Grid → Modal UX)
+// ============================================================
+// Shared modal
+function Modal({ open, onClose, title, icon, children, footer }) {
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm" onClick={onClose}>
+      <div className="relative w-full max-w-lg bg-[#0d0d0d] border border-[#252525] rounded-2xl shadow-2xl overflow-hidden"
+        style={{ maxHeight:'90vh', overflowY:'auto' }} onClick={e=>e.stopPropagation()}>
+        <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-crimson to-transparent" />
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#1a1a1a]">
+          <div className="flex items-center gap-2.5">
+            {icon && <Icon name={icon} className="w-4 h-4 text-crimson" />}
+            <h3 className="font-heading text-sm font-black text-white uppercase tracking-wide">{title}</h3>
+          </div>
+          <button onClick={onClose} className="w-7 h-7 rounded-lg border border-[#2a2a2a] text-gray-500 hover:text-white flex items-center justify-center cursor-pointer transition">
+            <Icon name="x" className="w-3.5 h-3.5" />
+          </button>
+        </div>
+        <div className="p-5 space-y-4">{children}</div>
+        {footer && <div className="px-5 pb-5 flex gap-3 flex-wrap">{footer}</div>}
+      </div>
+    </div>
+  );
+}
+
+function SectionHeader({ icon, title, sub, action }) {
+  return (
+    <div className="flex items-start justify-between gap-4 mb-6">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-crimson/10 border border-crimson/30 flex items-center justify-center shrink-0">
+          <Icon name={icon} className="w-5 h-5 text-crimson" />
+        </div>
+        <div>
+          <h3 className="font-heading text-lg font-black text-white uppercase tracking-tight">{title}</h3>
+          {sub && <p className="font-mono text-[10px] text-gray-500 mt-0.5">{sub}</p>}
+        </div>
+      </div>
+      {action}
+    </div>
+  );
+}
+
+function AddCard({ onClick, label }) {
+  return (
+    <button onClick={onClick}
+      className="flex flex-col items-center justify-center gap-2 bg-[#0d0d0d] border-2 border-dashed border-[#2a2a2a] hover:border-crimson/50 rounded-xl aspect-square cursor-pointer transition group min-h-[120px]">
+      <div className="w-8 h-8 rounded-full bg-[#1a1a1a] group-hover:bg-crimson/10 border border-[#2a2a2a] group-hover:border-crimson/30 flex items-center justify-center transition">
+        <Icon name="plus" className="w-4 h-4 text-gray-500 group-hover:text-crimson transition" />
+      </div>
+      <Micro className="text-gray-600 group-hover:text-crimson transition">{label}</Micro>
+    </button>
+  );
+}
+
+function AdminGallery({ lang, images, setImages, albums, setAlbums, categories, toast }) {
+  const [tab, setTab] = useState('images');
+  const TABS = [
+    ['images','image',tx(lang,'รูปภาพ','Images')],
+    ['albums','folder',tx(lang,'อัลบั้ม','Albums')],
+  ];
+  return (
+    <div className="space-y-6">
+      <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
+        {TABS.map(([k,ic,label]) => (
+          <button key={k} onClick={()=>setTab(k)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-full font-mono text-[10px] tracking-widest uppercase transition cursor-pointer ${tab===k?'bg-crimson text-white':'bg-[#1a1a1a] border border-[#2a2a2a] text-gray-400 hover:text-white'}`}>
+            <Icon name={ic} className="w-3.5 h-3.5"/>{label}
+          </button>
+        ))}
+      </div>
+      {tab==='images' && <ImagesGrid lang={lang} images={images} setImages={setImages} albums={albums} categories={categories} toast={toast} />}
+      {tab==='albums' && <AlbumsGrid lang={lang} albums={albums} setAlbums={setAlbums} images={images} toast={toast} />}
+    </div>
+  );
+}
+
+// ── Image Cards Grid ──────────────────────────────────────
+const BLANK_IMG = { title:'', artist:'', categoryId:'', albumId:'', imageUrl:'', tags:'', featured:false, likes:0 };
+
+function ImagesGrid({ lang, images, setImages, albums, categories, toast }) {
+  const [modal, setModal] = useState(null); // null | 'add' | image object
+  const isEdit = modal && modal !== 'add';
+  const [form, setForm] = useState(BLANK_IMG);
+  const f = (k,v) => setForm(p=>({...p,[k]:v}));
+  const tagsArr = t => (t||'').split(',').map(x=>x.trim()).filter(Boolean);
+
+  const open = (img) => {
+    if (img === 'add') { setForm(BLANK_IMG); }
+    else { setForm({...img, tags:(img.tags||[]).join(', ')}); }
+    setModal(img);
+  };
+  const close = () => setModal(null);
+
+  const save = () => {
+    if (!form.title || !form.imageUrl) return toast(tx(lang,'กรอกชื่อและ URL','Fill title & URL'),'','warning');
+    if (isEdit) {
+      setImages(p=>p.map(i=>i.id===modal.id?{...i,...form,tags:tagsArr(form.tags)}:i));
+      toast(tx(lang,'แก้ไขแล้ว','Updated'), form.title, 'success');
+    } else {
+      setImages(p=>[{...form,id:`img${Date.now()}`,tags:tagsArr(form.tags)},...p]);
+      toast(tx(lang,'เพิ่มแล้ว','Added'), form.title, 'success');
+    }
+    close();
+  };
+
+  const del = () => {
+    setImages(p=>p.filter(i=>i.id!==modal.id));
+    toast(tx(lang,'ลบแล้ว','Deleted'),'','info');
+    close();
+  };
+
+  return (
+    <>
+      <SectionHeader icon="image" title={tx(lang,'จัดการรูปภาพ','Manage Images')}
+        sub={`${images.length} ${tx(lang,'รูปทั้งหมด','total images')}`}
+        action={<Btn onClick={()=>open('add')} variant="primary" size="sm"><Icon name="plus" className="w-3.5 h-3.5"/>{tx(lang,'เพิ่มรูป','Add Image')}</Btn>} />
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        <AddCard onClick={()=>open('add')} label={tx(lang,'เพิ่มรูปใหม่','New Image')} />
+        {images.map(img => (
+          <button key={img.id} onClick={()=>open(img)}
+            className="relative rounded-xl overflow-hidden cursor-pointer border border-[#222] hover:border-crimson/50 transition group text-left aspect-square">
+            <img src={img.imageUrl} alt={img.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={e=>{e.target.style.background='#1a1a1a';}} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition" />
+            <div className="absolute bottom-0 left-0 right-0 p-2.5 translate-y-1 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all">
+              <p className="font-heading text-xs font-bold text-white uppercase truncate leading-tight">{img.title}</p>
+              <Micro className="text-gray-400 block mt-0.5 truncate">{img.artist}</Micro>
+            </div>
+            {img.featured && <div className="absolute top-2 left-2"><span className="bg-crimson text-white font-mono text-[8px] px-1.5 py-0.5 rounded tracking-widest uppercase">★</span></div>}
+            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+              <span className="bg-black/70 border border-[#333] text-gray-300 font-mono text-[8px] px-1.5 py-0.5 rounded">♡ {img.likes}</span>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <Modal open={!!modal} onClose={close} icon="image"
+        title={isEdit ? tx(lang,'แก้ไขรูปภาพ','Edit Image') : tx(lang,'เพิ่มรูปภาพ','Add Image')}
+        footer={<>
+          <Btn onClick={save} variant="primary" size="sm"><Icon name="check" className="w-3.5 h-3.5"/>{isEdit ? tx(lang,'บันทึก','Save') : tx(lang,'เพิ่ม','Add')}</Btn>
+          {isEdit && <Btn onClick={del} variant="danger" size="sm"><Icon name="trash" className="w-3.5 h-3.5"/>{tx(lang,'ลบ','Delete')}</Btn>}
+          <Btn onClick={close} variant="ghost" size="sm">{tx(lang,'ยกเลิก','Cancel')}</Btn>
+        </>}>
+        {form.imageUrl && <img src={form.imageUrl} alt="" className="w-full h-32 object-cover rounded-xl border border-[#222]" onError={e=>e.target.style.display='none'}/>}
+        <Input label="URL รูปภาพ" value={form.imageUrl} onChange={v=>f('imageUrl',v)} placeholder="https://..." />
+        <div className="grid grid-cols-2 gap-3">
+          <Input label={tx(lang,'ชื่อผลงาน','Title')} value={form.title} onChange={v=>f('title',v)} />
+          <Input label={tx(lang,'ช่างสัก','Artist')} value={form.artist} onChange={v=>f('artist',v)} />
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="space-y-1.5">
+            <Micro className="text-gray-500">{tx(lang,'หมวดหมู่','Category')}</Micro>
+            <select value={form.categoryId} onChange={e=>f('categoryId',e.target.value)} className="w-full bg-black/60 border border-[#2a2a2a] text-gray-300 text-xs rounded-xl px-3 py-2.5 outline-none cursor-pointer">
+              <option value="">{tx(lang,'เลือก...','Choose...')}</option>
+              {categories.map(c=><option key={c.id} value={c.id}>{tx(lang,c.nameTh,c.nameEn)}</option>)}
+            </select>
+          </div>
+          <div className="space-y-1.5">
+            <Micro className="text-gray-500">{tx(lang,'อัลบั้ม','Album')}</Micro>
+            <select value={form.albumId} onChange={e=>f('albumId',e.target.value)} className="w-full bg-black/60 border border-[#2a2a2a] text-gray-300 text-xs rounded-xl px-3 py-2.5 outline-none cursor-pointer">
+              <option value="">{tx(lang,'เลือก...','Choose...')}</option>
+              {albums.map(a=><option key={a.id} value={a.id}>{a.name}</option>)}
+            </select>
+          </div>
+        </div>
+        <Input label={tx(lang,'แท็ก (คั่น ,)','Tags (comma)')} value={form.tags} onChange={v=>f('tags',v)} placeholder="dragon, sleeve, blackwork" />
+        <div className="flex items-center gap-6">
+          <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-300">
+            <input type="checkbox" checked={form.featured} onChange={e=>f('featured',e.target.checked)} className="accent-crimson" />
+            {tx(lang,'Featured','Featured')}
+          </label>
+          <div className="flex items-center gap-2">
+            <Micro className="text-gray-500">Likes:</Micro>
+            <input type="number" value={form.likes} onChange={e=>f('likes',+e.target.value)} className="w-20 bg-black/60 border border-[#2a2a2a] text-sm text-gray-300 rounded-lg px-2 py-1.5 outline-none" />
+          </div>
+        </div>
+      </Modal>
+    </>
+  );
+}
+
+// ── Album Cards Grid ──────────────────────────────────────
+const BLANK_ALB = { name:'', descTh:'', promoted:false, cover:'' };
+
+function AlbumsGrid({ lang, albums, setAlbums, images, toast }) {
+  const [modal, setModal] = useState(null);
+  const isEdit = modal && modal !== 'add';
+  const [form, setForm] = useState(BLANK_ALB);
+  const f = (k,v) => setForm(p=>({...p,[k]:v}));
+
+  const open = (a) => { setForm(a === 'add' ? BLANK_ALB : {...a}); setModal(a); };
+  const close = () => setModal(null);
+  const save = () => {
+    if (!form.name) return;
+    if (isEdit) { setAlbums(p=>p.map(a=>a.id===modal.id?{...a,...form}:a)); toast(tx(lang,'แก้ไขแล้ว','Updated'), form.name, 'success'); }
+    else { setAlbums(p=>[...p,{...form,id:`a${Date.now()}`}]); toast(tx(lang,'เพิ่มแล้ว','Added'), form.name, 'success'); }
+    close();
+  };
+  const del = () => { setAlbums(p=>p.filter(a=>a.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
+
+  return (
+    <>
+      <SectionHeader icon="folder" title={tx(lang,'จัดการอัลบั้ม','Manage Albums')}
+        sub={`${albums.length} ${tx(lang,'อัลบั้ม','albums')}`}
+        action={<Btn onClick={()=>open('add')} variant="primary" size="sm"><Icon name="plus" className="w-3.5 h-3.5"/>{tx(lang,'สร้างอัลบั้ม','New Album')}</Btn>} />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <AddCard onClick={()=>open('add')} label={tx(lang,'อัลบั้มใหม่','New Album')} />
+        {albums.map(a => {
+          const count = images.filter(i=>i.albumId===a.id).length;
+          return (
+            <button key={a.id} onClick={()=>open(a)}
+              className="relative rounded-xl overflow-hidden cursor-pointer border border-[#222] hover:border-crimson/50 transition group text-left h-36">
+              {a.cover ? <img src={a.cover} alt={a.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <div className="w-full h-full bg-[#1a1a1a] flex items-center justify-center"><Icon name="folder" className="w-8 h-8 text-gray-600" /></div>}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3">
+                <div className="flex items-center gap-2 mb-1">
+                  {a.promoted && <Badge tone="amber"><Icon name="promote" className="w-2.5 h-2.5"/>Promoted</Badge>}
+                  <Micro className="text-gray-400">{count} {tx(lang,'รูป','imgs')}</Micro>
+                </div>
+                <p className="font-heading text-sm font-bold text-white uppercase truncate">{a.name}</p>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      <Modal open={!!modal} onClose={close} icon="folder"
+        title={isEdit ? tx(lang,'แก้ไขอัลบั้ม','Edit Album') : tx(lang,'สร้างอัลบั้ม','New Album')}
+        footer={<>
+          <Btn onClick={save} variant="primary" size="sm"><Icon name="check" className="w-3.5 h-3.5"/>{isEdit ? tx(lang,'บันทึก','Save') : tx(lang,'สร้าง','Create')}</Btn>
+          {isEdit && <Btn onClick={del} variant="danger" size="sm"><Icon name="trash" className="w-3.5 h-3.5"/>{tx(lang,'ลบ','Delete')}</Btn>}
+          <Btn onClick={close} variant="ghost" size="sm">{tx(lang,'ยกเลิก','Cancel')}</Btn>
+        </>}>
+        {form.cover && <img src={form.cover} alt="" className="w-full h-24 object-cover rounded-xl border border-[#222]" onError={e=>e.target.style.display='none'}/>}
+        <Input label={tx(lang,'ชื่ออัลบั้ม','Album Name')} value={form.name} onChange={v=>f('name',v)} />
+        <Textarea label={tx(lang,'คำอธิบาย','Description')} value={form.descTh} onChange={v=>f('descTh',v)} rows={2} />
+        <Input label={tx(lang,'URL รูปปก','Cover Image URL')} value={form.cover} onChange={v=>f('cover',v)} placeholder="https://..." />
+        <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-300">
+          <input type="checkbox" checked={form.promoted} onChange={e=>f('promoted',e.target.checked)} className="accent-crimson" />
+          {tx(lang,'โปรโมทใน Featured Strip','Show in Featured Strip')}
+        </label>
+      </Modal>
+    </>
+  );
+}
+
+
+
+// ── ADMIN: CONTENT / CATEGORIES / ARTISTS / REVIEWS ─────
+
+// ============================================================
+// Admin CMS — Content, Categories, Artists, Reviews (Card → Modal UX)
+// ============================================================
+function AdminContent({ lang, categories, setCategories, artists, setArtists, reviews, setReviews, config, setConfig, toast }) {
+  const [tab, setTab] = useState('content');
+  const TABS = [
+    ['content','edit', tx(lang,'เนื้อหาเว็บ','Page Content')],
+    ['categories','tag', tx(lang,'หมวดหมู่','Categories')],
+    ['artists','eye', tx(lang,'ช่างสัก','Artists')],
+    ['reviews','star', tx(lang,'รีวิว','Reviews')],
+  ];
+  return (
+    <div className="space-y-6">
+      <div className="flex gap-2 flex-wrap">
+        {TABS.map(([k,ic,label]) => (
+          <button key={k} onClick={()=>setTab(k)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-full font-mono text-[10px] tracking-widest uppercase transition cursor-pointer ${tab===k?'bg-crimson text-white':'bg-[#1a1a1a] border border-[#2a2a2a] text-gray-400 hover:text-white'}`}>
+            <Icon name={ic} className="w-3.5 h-3.5"/>{label}
+          </button>
+        ))}
+      </div>
+      {tab==='content' && <ContentCards lang={lang} config={config} setConfig={setConfig} toast={toast} />}
+      {tab==='categories' && <CategoriesCards lang={lang} categories={categories} setCategories={setCategories} toast={toast} />}
+      {tab==='artists' && <ArtistsCards lang={lang} artists={artists} setArtists={setArtists} toast={toast} />}
+      {tab==='reviews' && <ReviewCards lang={lang} reviews={reviews} setReviews={setReviews} toast={toast} />}
+    </div>
+  );
+}
+
+// ── Page Content Cards ────────────────────────────────────
+function ContentCards({ lang, config, setConfig, toast }) {
+  const [modal, setModal] = useState(null);
+  const [local, setLocal] = useState({...config});
+  const lf = (k,v) => setLocal(p=>({...p,[k]:v}));
+  const lfs = (k,i,v) => setLocal(p=>{const s=[...( p.stats||[])];s[i]={...s[i],[k]:v};return {...p,stats:s};});
+
+  const stats = local.stats || [
+    {val:'500+',th:'ผลงานสักสำเร็จ',en:'Tattoos Completed'},
+    {val:'8+',th:'ปีประสบการณ์',en:'Years Experience'},
+    {val:'4',th:'ช่างสักมืออาชีพ',en:'Master Artists'},
+    {val:'100%',th:'มาตรฐานโรงพยาบาล',en:'Hospital Grade'},
+  ];
+
+  const saveHero = () => { setConfig(local); toast(tx(lang,'บันทึก Hero แล้ว','Hero saved'),'','success'); setModal(null); };
+  const saveAbout = () => { setConfig(local); toast(tx(lang,'บันทึก About แล้ว','About saved'),'','success'); setModal(null); };
+  const saveStats = () => { setConfig({...config,...local,stats:local.stats||stats}); toast(tx(lang,'บันทึกสถิติแล้ว','Stats saved'),'','success'); setModal(null); };
+
+  const sections = [
+    { key:'hero', icon:'promote', label:tx(lang,'Hero Section','Hero Section'), preview: tx(lang,config.heroTitle,config.heroTitleEn), sub:tx(lang,'หัวข้อ/subtitle/คำอธิบาย','Title/subtitle/description') },
+    { key:'about', icon:'image', label:tx(lang,'About Section','About Section'), preview: tx(lang,config.aboutTitle,config.aboutTitleEn), sub:tx(lang,'หัวข้อ/เนื้อหา/รูปสตูดิโอ','Title/text/studio image') },
+    { key:'stats', icon:'bar', label:tx(lang,'สถิติ 4 บล็อก','4 Stat Blocks'), preview: stats.map(s=>s.val).join(' · '), sub:tx(lang,'ตัวเลขและป้ายกำกับ','Numbers & labels') },
+  ];
+
+  return (
+    <>
+      <SectionHeader icon="edit" title={tx(lang,'แก้ไขเนื้อหาหน้าเว็บ','Edit Page Content')} sub={tx(lang,'คลิกการ์ดเพื่อแก้ไข','Click a card to edit')} />
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {sections.map(s => (
+          <button key={s.key} onClick={()=>{ setLocal({...config}); setModal(s.key); }}
+            className="text-left bg-[#111] border border-[#222] hover:border-crimson/50 rounded-2xl p-5 transition cursor-pointer group">
+            <div className="w-9 h-9 rounded-xl bg-crimson/10 border border-crimson/30 flex items-center justify-center mb-4 group-hover:bg-crimson/20 transition">
+              <Icon name={s.icon} className="w-5 h-5 text-crimson" />
+            </div>
+            <p className="font-heading text-sm font-bold text-white uppercase">{s.label}</p>
+            <Micro className="text-gray-600 block mt-1">{s.sub}</Micro>
+            <p className="text-gray-400 text-xs mt-3 truncate">{s.preview}</p>
+          </button>
+        ))}
+      </div>
+
+      {/* Hero Modal */}
+      <Modal open={modal==='hero'} onClose={()=>setModal(null)} icon="promote" title="Hero Section"
+        footer={<><Btn onClick={saveHero} variant="primary" size="sm"><Icon name="check" className="w-3.5 h-3.5"/>{tx(lang,'บันทึก','Save')}</Btn><Btn onClick={()=>setModal(null)} variant="ghost" size="sm">{tx(lang,'ยกเลิก','Cancel')}</Btn></>}>
+        <Input label={tx(lang,'หัวข้อหลัก TH','Main Title TH')} value={local.heroTitle} onChange={v=>lf('heroTitle',v)} />
+        <Input label={tx(lang,'หัวข้อหลัก EN','Main Title EN')} value={local.heroTitleEn} onChange={v=>lf('heroTitleEn',v)} />
+        <Input label={tx(lang,'หัวข้อรอง TH','Subtitle TH')} value={local.heroSub} onChange={v=>lf('heroSub',v)} />
+        <Input label={tx(lang,'หัวข้อรอง EN','Subtitle EN')} value={local.heroSubEn} onChange={v=>lf('heroSubEn',v)} />
+        <Textarea label={tx(lang,'คำอธิบาย TH','Description TH')} value={local.heroDesc} onChange={v=>lf('heroDesc',v)} rows={3} />
+        <Textarea label={tx(lang,'คำอธิบาย EN','Description EN')} value={local.heroDescEn} onChange={v=>lf('heroDescEn',v)} rows={3} />
+      </Modal>
+
+      {/* About Modal */}
+      <Modal open={modal==='about'} onClose={()=>setModal(null)} icon="image" title="About Section"
+        footer={<><Btn onClick={saveAbout} variant="primary" size="sm"><Icon name="check" className="w-3.5 h-3.5"/>{tx(lang,'บันทึก','Save')}</Btn><Btn onClick={()=>setModal(null)} variant="ghost" size="sm">{tx(lang,'ยกเลิก','Cancel')}</Btn></>}>
+        <Input label={tx(lang,'หัวข้อ TH','Title TH')} value={local.aboutTitle} onChange={v=>lf('aboutTitle',v)} />
+        <Input label={tx(lang,'หัวข้อ EN','Title EN')} value={local.aboutTitleEn} onChange={v=>lf('aboutTitleEn',v)} />
+        <Textarea label={tx(lang,'เนื้อหา TH','Text TH')} value={local.aboutText} onChange={v=>lf('aboutText',v)} rows={3} />
+        <Textarea label={tx(lang,'เนื้อหา EN','Text EN')} value={local.aboutTextEn} onChange={v=>lf('aboutTextEn',v)} rows={3} />
+        <Input label={tx(lang,'URL รูปสตูดิโอ','Studio Image URL')} value={local.aboutImage||''} onChange={v=>lf('aboutImage',v)} placeholder="https://..." />
+      </Modal>
+
+      {/* Stats Modal */}
+      <Modal open={modal==='stats'} onClose={()=>setModal(null)} icon="bar" title={tx(lang,'สถิติ 4 บล็อก','4 Stat Blocks')}
+        footer={<><Btn onClick={saveStats} variant="primary" size="sm"><Icon name="check" className="w-3.5 h-3.5"/>{tx(lang,'บันทึก','Save')}</Btn><Btn onClick={()=>setModal(null)} variant="ghost" size="sm">{tx(lang,'ยกเลิก','Cancel')}</Btn></>}>
+        {stats.map((s,i) => (
+          <div key={i} className="bg-black/40 border border-[#1f1f1f] rounded-xl p-4 space-y-2">
+            <Micro className="text-gray-500 block">{tx(lang,'บล็อก','Block')} {i+1}</Micro>
+            <div className="grid grid-cols-3 gap-2">
+              <Input label={tx(lang,'ค่า','Value')} value={s.val} onChange={v=>lfs('val',i,v)} />
+              <Input label="TH" value={s.th} onChange={v=>lfs('th',i,v)} />
+              <Input label="EN" value={s.en} onChange={v=>lfs('en',i,v)} />
+            </div>
+          </div>
+        ))}
+      </Modal>
+    </>
+  );
+}
+
+// ── Category Chips ────────────────────────────────────────
+function CategoriesCards({ lang, categories, setCategories, toast }) {
+  const [modal, setModal] = useState(null);
+  const [form, setForm] = useState({ nameTh:'', nameEn:'' });
+  const isEdit = modal && modal !== 'add';
+
+  const open = c => { setForm(c==='add'?{nameTh:'',nameEn:''}:{nameTh:c.nameTh,nameEn:c.nameEn}); setModal(c); };
+  const close = () => setModal(null);
+  const save = () => {
+    if (!form.nameTh) return;
+    if (isEdit) { setCategories(p=>p.map(c=>c.id===modal.id?{...c,...form}:c)); toast(tx(lang,'แก้ไขแล้ว','Updated'), form.nameTh,'success'); }
+    else { setCategories(p=>[...p,{...form,id:`c${Date.now()}`,slug:form.nameEn.toLowerCase().replace(/\s+/g,'-')}]); toast(tx(lang,'เพิ่มแล้ว','Added'), form.nameTh,'success'); }
+    close();
+  };
+  const del = () => { setCategories(p=>p.filter(c=>c.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
+
+  return (
+    <>
+      <SectionHeader icon="tag" title={tx(lang,'จัดการหมวดหมู่','Manage Categories')}
+        sub={`${categories.length} ${tx(lang,'หมวดหมู่','categories')}`}
+        action={<Btn onClick={()=>open('add')} variant="primary" size="sm"><Icon name="plus" className="w-3.5 h-3.5"/>{tx(lang,'เพิ่ม','Add')}</Btn>} />
+      <div className="flex flex-wrap gap-2">
+        <button onClick={()=>open('add')}
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full border-2 border-dashed border-[#2a2a2a] hover:border-crimson/50 text-gray-600 hover:text-crimson font-mono text-[10px] tracking-widest uppercase transition cursor-pointer">
+          <Icon name="plus" className="w-3 h-3" />{tx(lang,'เพิ่มหมวด','Add')}
+        </button>
+        {categories.map(c => (
+          <button key={c.id} onClick={()=>open(c)}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[#2a2a2a] bg-[#111] hover:border-crimson/50 hover:bg-crimson/5 transition cursor-pointer group">
+            <Icon name="tag" className="w-3 h-3 text-gray-500 group-hover:text-crimson transition" />
+            <span className="font-mono text-[10px] tracking-widest uppercase text-gray-300 group-hover:text-white">{tx(lang,c.nameTh,c.nameEn)}</span>
+          </button>
+        ))}
+      </div>
+      <Modal open={!!modal} onClose={close} icon="tag"
+        title={isEdit ? tx(lang,'แก้ไขหมวดหมู่','Edit Category') : tx(lang,'เพิ่มหมวดหมู่','Add Category')}
+        footer={<><Btn onClick={save} variant="primary" size="sm"><Icon name="check" className="w-3.5 h-3.5"/>{isEdit?tx(lang,'บันทึก','Save'):tx(lang,'เพิ่ม','Add')}</Btn>{isEdit&&<Btn onClick={del} variant="danger" size="sm"><Icon name="trash" className="w-3.5 h-3.5"/>{tx(lang,'ลบ','Delete')}</Btn>}<Btn onClick={close} variant="ghost" size="sm">{tx(lang,'ยกเลิก','Cancel')}</Btn></>}>
+        <Input label={tx(lang,'ชื่อภาษาไทย','Thai Name')} value={form.nameTh} onChange={v=>setForm(p=>({...p,nameTh:v}))} />
+        <Input label={tx(lang,'ชื่อภาษาอังกฤษ','English Name')} value={form.nameEn} onChange={v=>setForm(p=>({...p,nameEn:v}))} />
+      </Modal>
+    </>
+  );
+}
+
+// ── Artist Cards ──────────────────────────────────────────
+const BLANK_ART = { nameTh:'', nameEn:'', specialty:'', experience:'', bio_th:'', imageUrl:'', available:'' };
+
+function ArtistsCards({ lang, artists, setArtists, toast }) {
+  const [modal, setModal] = useState(null);
+  const isEdit = modal && modal !== 'add';
+  const [form, setForm] = useState(BLANK_ART);
+  const f = (k,v) => setForm(p=>({...p,[k]:v}));
+
+  const open = a => { setForm(a==='add'?BLANK_ART:{...a}); setModal(a); };
+  const close = () => setModal(null);
+  const save = () => {
+    if (!form.nameTh) return;
+    if (isEdit) { setArtists(p=>p.map(a=>a.id===modal.id?{...a,...form}:a)); toast(tx(lang,'แก้ไขแล้ว','Updated'), form.nameTh,'success'); }
+    else { setArtists(p=>[...p,{...form,id:`art${Date.now()}`}]); toast(tx(lang,'เพิ่มแล้ว','Added'), form.nameTh,'success'); }
+    close();
+  };
+  const del = () => { setArtists(p=>p.filter(a=>a.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
+
+  return (
+    <>
+      <SectionHeader icon="eye" title={tx(lang,'จัดการช่างสัก','Manage Artists')}
+        sub={`${artists.length} ${tx(lang,'ช่างสัก','artists')}`}
+        action={<Btn onClick={()=>open('add')} variant="primary" size="sm"><Icon name="plus" className="w-3.5 h-3.5"/>{tx(lang,'เพิ่มช่าง','Add Artist')}</Btn>} />
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <AddCard onClick={()=>open('add')} label={tx(lang,'เพิ่มช่างสัก','Add Artist')} />
+        {artists.map(a => (
+          <button key={a.id} onClick={()=>open(a)}
+            className="bg-[#111] border border-[#222] hover:border-crimson/50 rounded-2xl overflow-hidden cursor-pointer transition group text-left">
+            <div className="relative h-36 overflow-hidden">
+              {a.imageUrl ? <img src={a.imageUrl} referrerPolicy="no-referrer" alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /> : <div className="w-full h-full bg-[#1a1a1a] flex items-center justify-center"><Icon name="eye" className="w-8 h-8 text-gray-600" /></div>}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+              <div className="absolute bottom-2 left-2"><Badge tone="crimson">{a.available||'—'}</Badge></div>
+            </div>
+            <div className="p-3">
+              <p className="font-heading text-xs font-bold text-white uppercase truncate">{tx(lang,a.nameTh,a.nameEn)}</p>
+              <Micro className="text-crimson block mt-0.5 truncate">{a.specialty}</Micro>
+              <Micro className="text-gray-600 block mt-0.5">{a.experience}</Micro>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <Modal open={!!modal} onClose={close} icon="eye"
+        title={isEdit ? tx(lang,'แก้ไขช่างสัก','Edit Artist') : tx(lang,'เพิ่มช่างสัก','Add Artist')}
+        footer={<><Btn onClick={save} variant="primary" size="sm"><Icon name="check" className="w-3.5 h-3.5"/>{isEdit?tx(lang,'บันทึก','Save'):tx(lang,'เพิ่ม','Add')}</Btn>{isEdit&&<Btn onClick={del} variant="danger" size="sm"><Icon name="trash" className="w-3.5 h-3.5"/>{tx(lang,'ลบ','Delete')}</Btn>}<Btn onClick={close} variant="ghost" size="sm">{tx(lang,'ยกเลิก','Cancel')}</Btn></>}>
+        {form.imageUrl && <img src={form.imageUrl} referrerPolicy="no-referrer" alt="" className="w-20 h-20 object-cover rounded-2xl border border-[#222] mx-auto" />}
+        <div className="grid grid-cols-2 gap-3">
+          <Input label={tx(lang,'ชื่อ TH','Name TH')} value={form.nameTh} onChange={v=>f('nameTh',v)} />
+          <Input label={tx(lang,'ชื่อ EN','Name EN')} value={form.nameEn} onChange={v=>f('nameEn',v)} />
+        </div>
+        <Input label={tx(lang,'ความเชี่ยวชาญ','Specialty')} value={form.specialty} onChange={v=>f('specialty',v)} />
+        <div className="grid grid-cols-2 gap-3">
+          <Input label={tx(lang,'ประสบการณ์','Experience')} value={form.experience} onChange={v=>f('experience',v)} placeholder="5 ปี" />
+          <Input label={tx(lang,'วันทำการ','Available')} value={form.available} onChange={v=>f('available',v)} placeholder="จ-ศ" />
+        </div>
+        <Textarea label={tx(lang,'ประวัติย่อ','Bio TH')} value={form.bio_th} onChange={v=>f('bio_th',v)} rows={2} />
+        <Input label="Image URL" value={form.imageUrl} onChange={v=>f('imageUrl',v)} placeholder="https://..." />
+      </Modal>
+    </>
+  );
+}
+
+// ── Review Cards ──────────────────────────────────────────
+function ReviewCards({ lang, reviews, setReviews, toast }) {
+  const [modal, setModal] = useState(null);
+  const approve = id => { setReviews(p=>p.map(r=>r.id===id?{...r,status:'approved'}:r)); toast(tx(lang,'อนุมัติแล้ว','Approved'),'','success'); setModal(null); };
+  const reject = id => { setReviews(p=>p.map(r=>r.id===id?{...r,status:'rejected'}:r)); toast(tx(lang,'ปฏิเสธแล้ว','Rejected'),'','info'); setModal(null); };
+  const del = id => { setReviews(p=>p.filter(r=>r.id!==id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); setModal(null); };
+
+  const counts = { pending:reviews.filter(r=>r.status==='pending').length, approved:reviews.filter(r=>r.status==='approved').length };
+
+  return (
+    <>
+      <SectionHeader icon="star" title={tx(lang,'จัดการรีวิว','Manage Reviews')}
+        sub={`${counts.pending} ${tx(lang,'รอตรวจ','pending')} · ${counts.approved} ${tx(lang,'อนุมัติ','approved')}`} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {reviews.map(r => (
+          <button key={r.id} onClick={()=>setModal(r)}
+            className={`text-left bg-[#111] border rounded-2xl p-5 cursor-pointer transition group ${r.status==='pending'?'border-amber-500/30 hover:border-amber-500/60':r.status==='approved'?'border-emerald-500/20 hover:border-emerald-500/40':'border-[#222] hover:border-[#333]'}`}>
+            <div className="flex items-center justify-between gap-3 mb-3">
+              <div className="flex items-center gap-2">
+                <StarRow n={r.rating} size="w-3 h-3" />
+                <Badge tone={r.status==='approved'?'green':r.status==='pending'?'amber':'gray'}>{r.status}</Badge>
+              </div>
+              <Micro className="text-gray-600">{r.createdAt}</Micro>
+            </div>
+            <p className="font-heading text-sm font-bold text-white">{r.author}</p>
+            {r.artist && <Micro className="text-crimson block mt-0.5">{r.artist}</Micro>}
+            <p className="text-gray-500 text-xs mt-2 leading-relaxed line-clamp-2">"{r.message}"</p>
+          </button>
+        ))}
+      </div>
+
+      <Modal open={!!modal} onClose={()=>setModal(null)} icon="star"
+        title={tx(lang,'รายละเอียดรีวิว','Review Detail')}
+        footer={modal && <>
+          {modal.status!=='approved' && <Btn onClick={()=>approve(modal.id)} variant="primary" size="sm"><Icon name="check" className="w-3.5 h-3.5"/>{tx(lang,'อนุมัติ','Approve')}</Btn>}
+          {modal.status!=='rejected' && <Btn onClick={()=>reject(modal.id)} variant="outline" size="sm">{tx(lang,'ปฏิเสธ','Reject')}</Btn>}
+          <Btn onClick={()=>del(modal.id)} variant="danger" size="sm"><Icon name="trash" className="w-3.5 h-3.5"/>{tx(lang,'ลบ','Delete')}</Btn>
+          <Btn onClick={()=>setModal(null)} variant="ghost" size="sm">{tx(lang,'ปิด','Close')}</Btn>
+        </>}>
+        {modal && (
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 flex-wrap">
+              <StarRow n={modal.rating} size="w-4 h-4" />
+              <Badge tone={modal.status==='approved'?'green':modal.status==='pending'?'amber':'gray'}>{modal.status}</Badge>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div><Micro className="text-gray-500 block">{tx(lang,'ผู้รีวิว','Author')}</Micro><p className="text-white text-sm mt-1">{modal.author}</p></div>
+              <div><Micro className="text-gray-500 block">{tx(lang,'ช่างสัก','Artist')}</Micro><p className="text-crimson text-sm mt-1">{modal.artist||'—'}</p></div>
+              <div><Micro className="text-gray-500 block">{tx(lang,'วันที่','Date')}</Micro><p className="text-white text-sm mt-1">{modal.createdAt}</p></div>
+            </div>
+            <div><Micro className="text-gray-500 block mb-2">{tx(lang,'ข้อความ','Message')}</Micro>
+              <p className="text-gray-300 text-sm leading-relaxed bg-black/40 border border-[#1f1f1f] rounded-xl p-4">"{modal.message}"</p>
+            </div>
+          </div>
+        )}
+      </Modal>
+    </>
+  );
+}
+
+
+
+// ── ADMIN: SETTINGS / ANALYTICS / PIXEL ─────────────────
+
+// ============================================================
+// Admin CMS — Pixel Settings, Analytics, Promote Albums
+// ============================================================
+function AdminSettings({ lang, config, setConfig, images, reviews, albums, categories, toast }) {
+  const [localPixel, setLocalPixel] = useState({ fb: config.fbPixel || '', tt: config.ttPixel || '' });
+  const [localSocial, setLocalSocial] = useState(config.social || {});
+  const [localMap, setLocalMap] = useState(config.mapUrl || '');
+  const [tab, setTab] = useState('analytics');
+
+  const savePixels = () => {
+    setConfig(p => ({ ...p, fbPixel: localPixel.fb, ttPixel: localPixel.tt }));
+    injectPixels(localPixel.fb, localPixel.tt);
+    toast('บันทึก Pixel แล้ว', `FB: ${localPixel.fb || 'ว่าง'} · TT: ${localPixel.tt || 'ว่าง'}`, 'success');
+  };
+
+  const saveSocial = () => {
+    setConfig(p => ({ ...p, social: localSocial, mapUrl: localMap }));
+    toast('บันทึกข้อมูลติดต่อแล้ว', 'อัปเดตโซเชียลและแผนที่เรียบร้อย', 'success');
+  };
+
+  const togglePromote = id => {
+    // toggle in albums via parent
+    const a = albums.find(x => x.id === id);
+    if (a) toast(a.promoted ? 'ยกเลิกโปรโมทแล้ว' : 'โปรโมทอัลบั้มแล้ว', a.name, a.promoted ? 'info' : 'success');
+  };
+
+  // Analytics derived stats
+  const totalImgs = images.length;
+  const featured = images.filter(i => i.featured).length;
+  const topCat = (() => {
+    const counts = {};
+    images.forEach(i => { counts[i.categoryId] = (counts[i.categoryId] || 0) + 1; });
+    const max = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+    if (!max) return '—';
+    const c = categories.find(x => x.id === max[0]);
+    return c ? tx(lang, c.nameTh, c.nameEn) : '—';
+  })();
+  const topImg = [...images].sort((a, b) => (b.likes || 0) - (a.likes || 0))[0];
+  const totalLikes = images.reduce((s, i) => s + (i.likes || 0), 0);
+  const apprvRev = reviews.filter(r => r.status === 'approved').length;
+  const pendRev = reviews.filter(r => r.status === 'pending').length;
+
+  const TABS = [['analytics','bar','สถิติ','Analytics'],['promote','promote','โปรโมท','Promote'],['pixel','settings','Pixel','Pixel'],['social','link','โซเชียล','Social & Map']];
+
+  return (
+    <div className="space-y-6">
+      <div className="flex gap-2 flex-wrap">
+        {TABS.map(([k, ic, th, en]) => (
+          <button key={k} onClick={() => setTab(k)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-full font-mono text-[10px] tracking-widest uppercase transition cursor-pointer ${tab === k ? 'bg-crimson text-white' : 'bg-[#1a1a1a] border border-[#2a2a2a] text-gray-400 hover:text-white'}`}>
+            <Icon name={ic} className="w-3.5 h-3.5" />{tx(lang, th, en)}
+          </button>
+        ))}
+      </div>
+
+      {/* ANALYTICS */}
+      {tab === 'analytics' && (
+        <div className="space-y-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {[
+              { label: tx(lang,'รูปทั้งหมด','Total Images'), val: totalImgs, tone: 'text-white' },
+              { label: tx(lang,'Featured','Featured'), val: featured, tone: 'text-crimson' },
+              { label: tx(lang,'ยอดไลค์รวม','Total Likes'), val: totalLikes.toLocaleString(), tone: 'text-red-400' },
+              { label: tx(lang,'รีวิวรอดำเนินการ','Pending Reviews'), val: pendRev, tone: 'text-amber-400' },
+            ].map(s => (
+              <Panel key={s.label} className="p-5 text-center">
+                <div className={`font-heading text-4xl font-black ${s.tone}`}>{s.val}</div>
+                <Micro className="text-gray-500 block mt-2">{s.label}</Micro>
+              </Panel>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Panel className="p-6">
+              <Micro className="text-crimson/80 block mb-4">{tx(lang,'ผลงานยอดนิยม','Top Performing Work')}</Micro>
+              {topImg ? (
+                <div className="flex gap-4 items-center">
+                  <img src={topImg.imageUrl} alt="" className="w-16 h-16 object-cover rounded-xl border border-[#222] shrink-0" />
+                  <div>
+                    <p className="font-heading text-sm font-bold text-white uppercase">{topImg.title}</p>
+                    <p className="text-gray-500 text-xs mt-0.5">{topImg.artist}</p>
+                    <div className="flex items-center gap-1.5 mt-2 text-crimson">
+                      <Icon name="heart" className="w-3.5 h-3.5 fill-crimson" />
+                      <span className="font-mono text-xs text-white">{topImg.likes}</span>
+                      <Micro className="text-gray-500">{tx(lang,'ไลค์','likes')}</Micro>
+                    </div>
+                  </div>
+                </div>
+              ) : <p className="text-gray-600 text-sm">—</p>}
+            </Panel>
+            <Panel className="p-6">
+              <Micro className="text-crimson/80 block mb-4">{tx(lang,'ภาพรวมรีวิว','Review Summary')}</Micro>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-400">{tx(lang,'รีวิวที่อนุมัติ','Approved reviews')}</span>
+                  <Badge tone="green">{apprvRev}</Badge>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-400">{tx(lang,'รีวิวรอตรวจ','Pending reviews')}</span>
+                  <Badge tone="amber">{pendRev}</Badge>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-400">{tx(lang,'หมวดหมู่ยอดนิยม','Top category')}</span>
+                  <Badge>{topCat}</Badge>
+                </div>
+              </div>
+            </Panel>
+          </div>
+        </div>
+      )}
+
+      {/* PROMOTE ALBUMS */}
+      {tab === 'promote' && (
+        <div>
+          <p className="text-gray-400 text-sm mb-6 leading-relaxed">{tx(lang, 'เลือกอัลบั้มที่ต้องการโปรโมท จะปรากฏใน Featured Strip บนหน้าแกลเลอรี', 'Featured albums appear in the gallery promoted strip at the top of the gallery section.')}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {albums.map(a => (
+              <div key={a.id} className={`relative rounded-2xl overflow-hidden border-2 transition ${a.promoted ? 'border-amber-500/60' : 'border-[#222]'}`}>
+                <div className="h-36 bg-[#111] overflow-hidden">
+                  {a.cover && <img src={a.cover} alt="" className="w-full h-full object-cover opacity-70" />}
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+                {a.promoted && (
+                  <div className="absolute top-3 right-3">
+                    <Badge tone="amber"><Icon name="promote" className="w-2.5 h-2.5" /> Featured</Badge>
+                  </div>
+                )}
+                <div className="absolute bottom-0 left-0 right-0 p-4 flex items-end justify-between">
+                  <div>
+                    <p className="font-heading text-sm font-bold text-white uppercase">{a.name}</p>
+                    <Micro className="text-gray-500">{images.filter(i=>i.albumId===a.id).length} {tx(lang,'ภาพ','images')}</Micro>
+                  </div>
+                  <button onClick={() => {
+                    const upd = albums.map(x => x.id === a.id ? { ...x, promoted: !x.promoted } : x);
+                    // we don't have setAlbums here — signal via toast, parent handles in AdminGallery
+                    // Use window event to propagate
+                    window._phg_togglePromote && window._phg_togglePromote(a.id);
+                    toast(a.promoted ? tx(lang,'ยกเลิกโปรโมทแล้ว','Unfeatured') : tx(lang,'โปรโมทแล้ว','Promoted!'), a.name, a.promoted ? 'info' : 'success');
+                  }}
+                    className={`px-3 py-1.5 rounded-lg font-mono text-[9px] tracking-widest uppercase transition cursor-pointer ${a.promoted ? 'bg-amber-500/20 border border-amber-500/40 text-amber-400 hover:bg-amber-500/30' : 'bg-crimson/10 border border-crimson/30 text-crimson hover:bg-crimson/20'}`}>
+                    {a.promoted ? tx(lang,'ยกเลิก','Unfeature') : tx(lang,'โปรโมท','Feature')}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* PIXEL SETTINGS */}
+      {tab === 'pixel' && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Panel className="p-6 space-y-5">
+            <Micro className="text-crimson/80">Facebook Pixel</Micro>
+            <Input label="Facebook Pixel ID" value={localPixel.fb} onChange={v => setLocalPixel(p=>({...p,fb:v}))} placeholder="123456789012345" mono />
+            <div className="bg-[#0d0d0d] border border-[#1f1f1f] rounded-xl p-4">
+              <Micro className="text-gray-500 block mb-2">{tx(lang,'ตัวอย่าง Code','Preview Code')}</Micro>
+              <code className="text-[10px] text-gray-500 font-mono break-all">{localPixel.fb ? `fbq('init','${localPixel.fb}'); fbq('track','PageView');` : tx(lang,'ใส่ Pixel ID เพื่อดู code','Enter Pixel ID to preview code')}</code>
+            </div>
+          </Panel>
+          <Panel className="p-6 space-y-5">
+            <Micro className="text-crimson/80">TikTok Pixel</Micro>
+            <Input label="TikTok Pixel ID" value={localPixel.tt} onChange={v => setLocalPixel(p=>({...p,tt:v}))} placeholder="ABCDE123456" mono />
+            <div className="bg-[#0d0d0d] border border-[#1f1f1f] rounded-xl p-4">
+              <Micro className="text-gray-500 block mb-2">{tx(lang,'ตัวอย่าง Code','Preview Code')}</Micro>
+              <code className="text-[10px] text-gray-500 font-mono break-all">{localPixel.tt ? `ttq.load('${localPixel.tt}'); ttq.page();` : tx(lang,'ใส่ Pixel ID เพื่อดู code','Enter Pixel ID to preview code')}</code>
+            </div>
+          </Panel>
+          <div className="lg:col-span-2">
+            <Btn onClick={savePixels} variant="primary" size="lg"><Icon name="check" className="w-4 h-4" />{tx(lang,'บันทึกและเปิดใช้งาน Pixel','Save & Activate Pixels')}</Btn>
+          </div>
+        </div>
+      )}
+
+      {/* SOCIAL & MAP */}
+      {tab === 'social' && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Panel className="p-6 space-y-4">
+            <Micro className="text-crimson/80">{tx(lang,'ลิงก์โซเชียลมีเดีย','Social Media Links')}</Micro>
+            {[['facebook','Facebook Page URL'],['instagram','Instagram URL'],['tiktok','TikTok Profile URL'],['lineoa','LINE OA URL'],['twitter','X / Twitter URL'],['phone',tx(lang,'เบอร์โทร','Phone Number')]].map(([k,lbl]) => (
+              <Input key={k} label={lbl} value={localSocial[k]||''} onChange={v => setLocalSocial(p=>({...p,[k]:v}))} placeholder={k==='phone'?'0812345678':'https://...'} />
+            ))}
+          </Panel>
+          <Panel className="p-6 space-y-4">
+            <Micro className="text-crimson/80">Google Maps Embed</Micro>
+            <Textarea label={tx(lang,'วาง Google Maps Embed URL ตรงนี้','Paste Google Maps Embed URL here')} value={localMap} onChange={setLocalMap} placeholder="https://www.google.com/maps/embed?pb=..." rows={4} />
+            <p className="text-gray-600 text-xs leading-relaxed">{tx(lang,'ไปที่ Google Maps → แชร์ → ฝังแผนที่ → คัดลอก URL ใน src="..."','Go to Google Maps → Share → Embed a map → Copy the URL inside src="..."')}</p>
+            {localMap && (
+              <div className="w-full h-48 rounded-xl overflow-hidden border border-[#222]">
+                <iframe src={localMap} width="100%" height="100%" style={{ border: 0 }} loading="lazy" title="Preview" />
+              </div>
+            )}
+            <Btn onClick={saveSocial} variant="primary" className="w-full justify-center"><Icon name="check" className="w-4 h-4" />{tx(lang,'บันทึก','Save Settings')}</Btn>
+          </Panel>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function injectPixels(fbId, ttId) {
+  // Remove old pixel scripts
+  ['__fb_pixel','__tt_pixel'].forEach(id => { const el = document.getElementById(id); if (el) el.remove(); });
+  if (fbId) {
+    const s = document.createElement('script');
+    s.id = '__fb_pixel';
+    s.textContent = `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${fbId}');fbq('track','PageView');`;
+    document.head.appendChild(s);
+  }
+  if (ttId) {
+    const s = document.createElement('script');
+    s.id = '__tt_pixel';
+    s.textContent = `!function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};ttq.load('${ttId}');ttq.page();}(window,document,'ttq');`;
+    document.head.appendChild(s);
+  }
+}
+
+
+
+// ── APP SHELL ────────────────────────────────────────────
+
+// ============================================================
+// PHOOGUN TATTOO — App Shell (routing, state, nav, login)
+// ============================================================
+const LS_KEYS = { images: 'phg2_images', albums: 'phg2_albums', categories: 'phg2_categories', artists: 'phg2_artists', reviews: 'phg2_reviews', config: 'phg2_config', heroSlides: 'phg2_heroSlides' };
+const lsGet = (k, def) => {try {const v = localStorage.getItem(k);return v ? JSON.parse(v) : def;} catch {return def;}};
+const lsSet = (k, v) => {try {localStorage.setItem(k, JSON.stringify(v));} catch {}};
+
+// Data already in scope from data layer above
+
+function App() {
+  const [mode, setMode] = useState('public');
+  const [lang, setLang] = useState(() => localStorage.getItem('phg2_lang') || 'TH');
+  const [passcode, setPasscode] = useState('');
+  const [loginErr, setLoginErr] = useState(false);
+  const [adminTab, setAdminTab] = useState('analytics');
+  const [sheetsStatus, setSheetsStatus] = useState('loading'); // 'loading' | 'ok' | 'offline'
+  const { toasts, push: toast, dismiss } = useToast();
+
+  // Global data state (persisted — pre-filled from localStorage or defaults)
+  const [images, setImages] = usePersistedState(LS_KEYS.images, DEFAULT_IMAGES);
+  const [albums, setAlbums] = usePersistedState(LS_KEYS.albums, DEFAULT_ALBUMS);
+  const [categories, setCategories] = usePersistedState(LS_KEYS.categories, DEFAULT_CATEGORIES);
+  const [artists, setArtists] = usePersistedState(LS_KEYS.artists, DEFAULT_ARTISTS);
+  const [reviews, setReviews] = usePersistedState(LS_KEYS.reviews, DEFAULT_REVIEWS);
+  const [config, setConfig] = usePersistedState(LS_KEYS.config, DEFAULT_CONFIG);
+  const [heroSlides, setHeroSlides] = useState(() => lsGet(LS_KEYS.heroSlides, HERO_SLIDES));
+
+  // ── Load fresh data from Google Sheets on mount ───────────
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const d = await loadAllFromSheets();
+        if (cancelled) return;
+        setImages(d.images);
+        setAlbums(d.albums);
+        setCategories(d.categories);
+        setArtists(d.artists);
+        setReviews(d.reviews);
+        setConfig(d.config);
+        if (d.heroSlides && d.heroSlides.length > 0) {
+          setHeroSlides(d.heroSlides);
+          lsSet(LS_KEYS.heroSlides, d.heroSlides);
+        }
+        setSheetsStatus('ok');
+      } catch (err) {
+        if (!cancelled) {
+          console.warn('Sheets offline, using cached data:', err.message);
+          setSheetsStatus('offline');
+        }
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  // Wire promote toggle for AdminSettings
+  useEffect(() => {
+    window._phg_togglePromote = (id) => {
+      setAlbums((p) => p.map((a) => a.id === id ? { ...a, promoted: !a.promoted } : a));
+      // sync to Sheets
+      const a = albums.find(x => x.id === id);
+      if (a) saveToSheets('update', 'albums', { promoted: String(!a.promoted) }, id).catch(() => {});
+    };
+    return () => {delete window._phg_togglePromote;};
+  }, [albums]);
+
+  // Auto-inject pixels on public page load
+  useEffect(() => {
+    if (mode === 'public' && (config.fbPixel || config.ttPixel)) {
+      if (typeof injectPixels === 'function') injectPixels(config.fbPixel, config.ttPixel);
+    }
+  }, [mode, config.fbPixel, config.ttPixel]);
+
+  useEffect(() => {localStorage.setItem('phg2_lang', lang);}, [lang]);
+
+  const login = (code) => {
+    const storedCode = config.adminPasscode || '1337';
+    if (code === storedCode || code.toLowerCase() === 'admin') {
+      setMode('admin');setPasscode('');setLoginErr(false);
+      toast(tx(lang, 'ยินดีต้อนรับ Admin', 'Welcome Admin'), 'PHOOGUN CMS Backoffice', 'success');
+    } else {
+      setLoginErr(true);
+      toast(tx(lang, 'รหัสไม่ถูกต้อง', 'Access Denied'), '', 'error');
+      setTimeout(() => setLoginErr(false), 600);
+    }
+  };
+
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+  };
+
+  const adminNavItems = [
+  ['analytics', 'bar', 'สถิติ / Analytics'],
+  ['gallery', 'image', 'ภาพ & อัลบั้ม'],
+  ['content', 'edit', 'เนื้อหา & ช่าง & รีวิว'],
+  ['settings', 'settings', 'Pixel & ติดต่อ']];
+
+
+  const cms = { images, setImages, albums, setAlbums, categories, setCategories, artists, setArtists, reviews, setReviews, config, setConfig, toast, lang };
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [adminMobileTab, setAdminMobileTab] = useState(false);
+
+  return (
+    <div className="min-h-screen bg-[#080808] text-gray-200">
+      {mode === 'public' &&
+      <>
+          {/* PUBLIC NAV */}
+          <nav className="sticky top-0 z-40 bg-[#080808]/98 backdrop-blur border-b border-[#1a1a1a]">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
+              {/* Logo */}
+              <button onClick={() => { scrollTo('hero'); setMobileMenuOpen(false); }} className="flex items-center gap-2.5 cursor-pointer shrink-0">
+                <span className="w-8 h-8 rounded-tr-md rounded-bl-md bg-crimson flex items-center justify-center font-heading font-bold text-white shadow-[0_0_12px_rgba(230,25,46,0.5)]">P</span>
+                <span className="font-heading tracking-[0.15em] text-base font-bold text-white uppercase">Phoogun</span>
+              </button>
+              {/* Desktop nav links */}
+              <div className="hidden md:flex gap-6 text-xs font-heading uppercase tracking-widest">
+                {[['gallery','ผลงาน','Portfolio'],['about','เกี่ยวกับ','About'],['reviews','รีวิว','Reviews'],['contact','ติดต่อ','Contact']].map(([id,th,en]) =>
+                  <button key={id} onClick={() => scrollTo(id)} className="text-gray-400 hover:text-white transition cursor-pointer py-1">{tx(lang,th,en)}</button>
+                )}
+              </div>
+              {/* Right controls */}
+              <div className="flex items-center gap-2">
+                <div className="bg-[#1a1a1a] rounded px-1.5 py-1 flex gap-1 text-xs font-mono font-bold">
+                  {['TH','EN'].map(L =>
+                    <button key={L} onClick={() => setLang(L)} className={`px-1.5 py-0.5 rounded cursor-pointer transition ${lang===L?'bg-crimson text-white':'text-gray-400 hover:text-white'}`}>{L}</button>
+                  )}
+                </div>
+                <button onClick={() => setMode('login')}
+                  className="hidden sm:flex items-center gap-1.5 bg-black border border-[#333] hover:border-crimson text-gray-300 hover:text-white font-heading font-bold text-[11px] tracking-widest uppercase px-3 py-2 rounded-full transition cursor-pointer">
+                  <Icon name="shield" className="w-3.5 h-3.5 text-crimson" />{tx(lang,'Admin','Admin')}
+                </button>
+                {/* Hamburger */}
+                <button onClick={() => setMobileMenuOpen(p => !p)}
+                  className="md:hidden flex flex-col gap-1.5 w-9 h-9 items-center justify-center cursor-pointer">
+                  <span className={`block w-5 h-0.5 bg-white transition-all ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                  <span className={`block w-5 h-0.5 bg-white transition-all ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+                  <span className={`block w-5 h-0.5 bg-white transition-all ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+                </button>
+              </div>
+            </div>
+            {/* Mobile menu drawer */}
+            {mobileMenuOpen && (
+              <div className="md:hidden bg-[#0a0a0a] border-t border-[#1a1a1a] px-4 py-4 space-y-1">
+                {[['gallery','ผลงาน','Portfolio'],['about','เกี่ยวกับ','About'],['reviews','รีวิว','Reviews'],['contact','ติดต่อ','Contact']].map(([id,th,en]) =>
+                  <button key={id} onClick={() => { scrollTo(id); setMobileMenuOpen(false); }}
+                    className="w-full text-left px-4 py-3 font-heading text-sm font-bold uppercase tracking-widest text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition cursor-pointer flex items-center justify-between">
+                    {tx(lang,th,en)}<Icon name="arrow_r" className="w-4 h-4 text-crimson" />
+                  </button>
+                )}
+                <div className="pt-2 border-t border-[#1a1a1a]">
+                  <button onClick={() => { setMode('login'); setMobileMenuOpen(false); }}
+                    className="w-full flex items-center gap-2 px-4 py-3 font-heading text-sm font-bold uppercase tracking-widest text-crimson hover:bg-crimson/10 rounded-xl transition cursor-pointer">
+                    <Icon name="shield" className="w-4 h-4" />{tx(lang,'เข้าหลังบ้าน','Admin Login')}
+                  </button>
+                </div>
+              </div>
+            )}
+          </nav>
+
+          {/* Marquee */}
+          <div className="bg-[#050505] border-b border-[#1a1a1a] py-2.5 overflow-hidden flex select-none">
+            <div className="flex gap-8 animate-marquee whitespace-nowrap text-[10px] font-mono font-bold tracking-[0.25em] text-gray-600 uppercase">
+              {[0, 1].map((k) =>
+            <React.Fragment key={k}>
+                  <span>• PHOOGUN TATTOO BANGKOK</span><span className="text-crimson">• CYBER-BLACKWORK</span>
+                  <span>• NEO-IREZUMI</span><span className="text-crimson">• HOSPITAL GRADE STERILE</span>
+                  <span>• OPEN DAILY 12:00–21:00</span><span className="text-crimson">• DARK ARTS GUILD</span>
+                </React.Fragment>
+            )}
+            </div>
+          </div>
+
+          {/* Public sections */}
+          <HeroSection lang={lang} config={config} heroSlides={heroSlides}
+        onBookClick={() => scrollTo('contact')}
+        onGalleryClick={() => scrollTo('gallery')} />
+          <GallerySection lang={lang} images={images} categories={categories} albums={albums} />
+          <AboutSection lang={lang} config={config} artists={artists} />
+          <ReviewsSection lang={lang} reviews={reviews} artists={artists}
+        onSubmitReview={async (r) => {
+          setReviews((p) => [r, ...p]);
+          try { await submitReview(r); } catch(e) { console.warn('Review sync failed', e); }
+        }} />
+          <ContactSection lang={lang} config={config} onSubmitBooking={async (b) => {
+            try {
+              const res = await submitBooking(b);
+              toast(tx(lang,'ส่งคำขอจองแล้ว!','Booking Sent!'), tx(lang,'ทีมงานจะติดต่อกลับเร็วๆ นี้','Our team will contact you shortly'), 'success');
+              return res;
+            } catch(e) {
+              toast(tx(lang,'เกิดข้อผิดพลาด','Error'), e.message, 'error');
+            }
+          }} />
+          <Footer lang={lang} />
+        </>
+      }
+
+      {mode === 'login' &&
+      <LoginScreen lang={lang} passcode={passcode} setPasscode={setPasscode} loginErr={loginErr}
+      onSubmit={login} onBack={() => {setMode('public');setPasscode('');setLoginErr(false);}} />
+      }
+
+      {mode === 'admin' && (
+        <div className="flex min-h-screen">
+          {/* Desktop Sidebar */}
+          <aside className="hidden md:flex w-56 shrink-0 bg-[#0a0a0a] border-r border-[#1a1a1a] flex-col sticky top-0 h-screen">
+            <div className="p-5 border-b border-[#1a1a1a]">
+              <div className="flex items-center gap-2.5">
+                <span className="w-8 h-8 rounded-tr-md rounded-bl-md bg-crimson flex items-center justify-center font-heading text-sm font-bold text-white">P</span>
+                <div>
+                  <div className="font-heading text-xs font-bold text-white uppercase tracking-wider">Phoogun</div>
+                  <div className="font-mono text-[8px] text-crimson tracking-widest uppercase">CMS Backoffice</div>
+                </div>
+              </div>
+            </div>
+            <nav className="flex-1 p-3 space-y-1">
+              {adminNavItems.map(([key, icon, label]) => (
+                <button key={key} onClick={() => setAdminTab(key)}
+                  className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-left cursor-pointer transition font-heading text-[11px] font-bold tracking-wider uppercase ${adminTab===key?'bg-crimson text-white':'text-gray-400 hover:text-white hover:bg-white/5'}`}>
+                  <Icon name={icon} className="w-4 h-4 shrink-0" />{label}
+                </button>
+              ))}
+              {/* Sheets status */}
+              <div className={`mt-3 mx-1 px-3 py-2 rounded-lg border flex items-center gap-2 ${
+                sheetsStatus==='ok' ? 'border-emerald-500/30 bg-emerald-500/5' :
+                sheetsStatus==='offline' ? 'border-amber-500/30 bg-amber-500/5' :
+                'border-[#2a2a2a] bg-black/20'}`}>
+                <span className={`w-2 h-2 rounded-full shrink-0 ${
+                  sheetsStatus==='ok' ? 'bg-emerald-400 animate-pulse' :
+                  sheetsStatus==='offline' ? 'bg-amber-400' : 'bg-gray-600 animate-pulse'}`} />
+                <div>
+                  <Micro className={sheetsStatus==='ok'?'text-emerald-400':sheetsStatus==='offline'?'text-amber-400':'text-gray-600'}>
+                    {sheetsStatus==='ok'?'Sheets ✓ Live':sheetsStatus==='offline'?'Sheets Offline':'Connecting...'}
+                  </Micro>
+                </div>
+              </div>
+            </nav>
+            <div className="p-3 border-t border-[#1a1a1a]">
+              <button onClick={() => { setMode('public'); toast(tx(lang,'ออกจาก Admin แล้ว','Logged out'),'','info'); }}
+                className="w-full flex items-center gap-2 px-3 py-2 text-gray-500 hover:text-white text-xs font-mono uppercase tracking-widest cursor-pointer hover:bg-white/5 rounded-lg transition">
+                <Icon name="logout" className="w-4 h-4" />{tx(lang,'ออกจากระบบ','Log Out')}
+              </button>
+            </div>
+          </aside>
+
+          {/* Admin main */}
+          <main className="flex-1 overflow-auto bg-[#0a0a0a] pb-20 md:pb-0">
+            {/* Mobile top bar */}
+            <div className="md:hidden sticky top-0 z-30 bg-[#0a0a0a]/95 border-b border-[#1a1a1a] px-4 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <span className="w-7 h-7 rounded-tr-sm rounded-bl-sm bg-crimson flex items-center justify-center font-heading text-xs font-bold text-white">P</span>
+                <span className="font-heading text-xs font-bold text-white uppercase tracking-wider">
+                  {adminNavItems.find(n => n[0] === adminTab)?.[2]}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="bg-[#1a1a1a] rounded px-1.5 py-1 flex gap-1 text-xs font-mono font-bold">
+                  {['TH','EN'].map(L => (
+                    <button key={L} onClick={() => setLang(L)} className={`px-1.5 py-0.5 rounded cursor-pointer transition ${lang===L?'bg-crimson text-white':'text-gray-400 hover:text-white'}`}>{L}</button>
+                  ))}
+                </div>
+                <button onClick={() => { setMode('public'); toast(tx(lang,'ออก','Out'),'','info'); }}
+                  className="w-8 h-8 flex items-center justify-center border border-[#333] rounded-lg text-gray-400 hover:text-crimson cursor-pointer transition">
+                  <Icon name="logout" className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-4 sm:p-6 lg:p-8 space-y-6">
+              {/* Desktop title */}
+              <div className="hidden md:flex items-center justify-between">
+                <div>
+                  <h1 className="font-heading text-2xl font-black text-white uppercase">{adminNavItems.find(n => n[0] === adminTab)?.[2]}</h1>
+                  <Micro className="text-gray-600 block mt-1">Phoogun Tattoo CMS · v2.0</Micro>
+                </div>
+                <div className="bg-[#1a1a1a] rounded px-1.5 py-1 flex gap-1 text-xs font-mono font-bold">
+                  {['TH','EN'].map(L => (
+                    <button key={L} onClick={() => setLang(L)} className={`px-1.5 py-0.5 rounded cursor-pointer transition ${lang===L?'bg-crimson text-white':'text-gray-400 hover:text-white'}`}>{L}</button>
+                  ))}
+                </div>
+              </div>
+              {adminTab === 'analytics' && <AdminSettings {...cms} />}
+              {adminTab === 'gallery'   && <AdminGallery  {...cms} />}
+              {adminTab === 'content'   && <AdminContent  {...cms} />}
+              {adminTab === 'settings'  && <AdminSettings {...cms} />}
+            </div>
+          </main>
+
+          {/* Mobile bottom tab bar */}
+          <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0a0a0a]/98 backdrop-blur border-t border-[#1a1a1a] flex">
+            {adminNavItems.map(([key, icon, label]) => (
+              <button key={key} onClick={() => setAdminTab(key)}
+                className={`flex-1 flex flex-col items-center gap-1 py-2.5 cursor-pointer transition ${adminTab===key?'text-crimson':'text-gray-600 hover:text-gray-400'}`}>
+                <Icon name={icon} className="w-5 h-5" />
+                <span className="font-mono text-[8px] tracking-widest uppercase">{label.split(' ')[0]}</span>
+              </button>
+            ))}
+          </nav>
+        </div>
+      )}
+
+      <ToastStack toasts={toasts} dismiss={dismiss} />
+    </div>);
+
+}
+
+// Persisted state hook
+function usePersistedState(key, defaultVal) {
+  const [val, setVal] = useState(() => lsGet(key, defaultVal));
+  const setPersisted = useCallback((updater) => {
+    setVal((prev) => {
+      const next = typeof updater === 'function' ? updater(prev) : updater;
+      lsSet(key, next);
+      return next;
+    });
+  }, [key]);
+  return [val, setPersisted];
+}
+
+// Login Screen
+function LoginScreen({ lang, passcode, setPasscode, loginErr, onSubmit, onBack }) {
+  return (
+    <div className="min-h-screen flex items-center justify-center p-4 bg-[#060606] relative overflow-hidden">
+      <div className="absolute inset-0 opacity-20 pointer-events-none"
+      style={{ backgroundImage: 'linear-gradient(to right,#1a1a1a 1px,transparent 1px),linear-gradient(to bottom,#1a1a1a 1px,transparent 1px)', backgroundSize: '60px 60px' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-crimson/8 rounded-full blur-[120px] pointer-events-none" />
+      <div className="w-full max-w-sm relative z-10">
+        <button onClick={onBack} className="mb-6 flex items-center gap-2 text-xs font-mono text-gray-500 hover:text-white transition cursor-pointer uppercase tracking-widest">
+          <Icon name="arrow_l" className="w-4 h-4 text-crimson" />{tx(lang, 'กลับหน้าเว็บ', 'Back to Site')}
+        </button>
+        <div className={`bg-[#0d0d0d]/90 backdrop-blur-xl border rounded-3xl p-7 shadow-2xl space-y-6 relative transition-all ${loginErr ? 'border-rose-500/50 animate-shake' : 'border-[#222]'}`}>
+          <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-crimson to-transparent rounded-t-3xl" />
+          <div className="text-center space-y-1.5">
+            <div className="w-12 h-12 rounded-2xl bg-crimson/10 border border-crimson/30 flex items-center justify-center mx-auto">
+              <Icon name="shield" className="w-6 h-6 text-crimson" />
+            </div>
+            <p className="font-heading text-lg font-black text-white uppercase tracking-tight">Phoogun CMS</p>
+            <Micro className="text-gray-600">INK_OS BACKOFFICE v2.0</Micro>
+          </div>
+          <input type="password" value={passcode} onChange={(e) => setPasscode(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && onSubmit(passcode)}
+          placeholder="••••••••" autoFocus
+          className="w-full bg-black/80 border border-[#2d2d2d] focus:border-crimson/50 outline-none rounded-2xl px-5 py-4 text-center text-lg font-mono font-bold tracking-[0.4em] text-white placeholder:text-[#333] placeholder:tracking-[0.1em] transition" />
+          <div className="grid grid-cols-3 gap-2">
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 'C', 0, '⌫'].map((k) =>
+            <button key={k} type="button"
+            onClick={() => {if (k === 'C') setPasscode('');else if (k === '⌫') setPasscode((p) => p.slice(0, -1));else setPasscode((p) => p + k);}}
+            className={`py-3.5 rounded-xl text-center font-heading font-bold text-sm transition cursor-pointer active:scale-95 border
+                  ${k === 'C' ? 'border-rose-500/20 text-rose-400 hover:bg-rose-500/10 bg-black/20' : k === '⌫' ? 'border-amber-500/20 text-amber-400 hover:bg-amber-500/10 bg-black/20' : 'border-[#1a1a1a] bg-black/40 text-gray-300 hover:bg-[#1a1a1a] hover:text-white'}`}>
+                {k}
+              </button>
+            )}
+          </div>
+          <Btn onClick={() => onSubmit(passcode)} variant="primary" size="lg" className="w-full justify-center">
+            <Icon name="shield" className="w-4 h-4" />{tx(lang, 'ปลดล็อก', 'Unlock')}
+          </Btn>
+
+        </div>
+      </div>
+    </div>);
+
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
 </body>
 </html>

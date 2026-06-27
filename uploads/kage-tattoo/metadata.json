@@ -1,0 +1,8 @@
+{
+  "name": "Kage Tattoo",
+  "description": "แกลเลอรีผลงานและระบบบริหารจัดการหลังบ้านระดับพรีเมียม / Premium Tattoo Gallery & Backoffice Studio Management System with Google Sheets integrations",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

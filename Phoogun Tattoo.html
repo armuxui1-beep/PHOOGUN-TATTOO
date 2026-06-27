@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Phoogun Tattoo — Premium Dark Arts Bangkok</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,700;1,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<meta name="ext-resource-dependency" content="https://cdn.tailwindcss.com" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: { crimson: 'var(--color-crimson)' },
+        fontFamily: {
+          sans: ['Prompt', 'sans-serif'],
+          heading: ['Prompt', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+        keyframes: {
+          marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+          shake: { '0%,100%': { transform: 'translateX(0)' }, '20%,60%': { transform: 'translateX(-10px)' }, '40%,80%': { transform: 'translateX(10px)' } },
+        },
+        animation: {
+          marquee: 'marquee 40s linear infinite',
+          shake: 'shake 0.45s cubic-bezier(.36,.07,.19,.97)',
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root { --color-crimson: #e6192e; }
+  html, body { background: #080808; }
+  body { font-family: 'Prompt', sans-serif; -webkit-font-smoothing: antialiased; }
+  .fill-crimson { fill: var(--color-crimson); }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #080808; }
+  ::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-crimson); }
+  html { scroll-behavior: smooth; }
+  /* safe-area for notch phones */
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  /* prevent horizontal overflow on mobile */
+  body { overflow-x: hidden; }
+  /* tap highlight */
+  * { -webkit-tap-highlight-color: transparent; }
+</style>
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#080808"/>
+    <rect x="15" y="30" width="70" height="40" rx="4" fill="none" stroke="#e6192e" stroke-width="2.5"/>
+    <rect x="15" y="30" width="70" height="12" rx="4" fill="#e6192e"/>
+    <text x="50" y="40" font-family="sans-serif" font-size="8" fill="white" text-anchor="middle" font-weight="bold">PHOOGUN</text>
+    <rect x="22" y="50" width="20" height="14" rx="2" fill="#1a1a1a"/>
+    <rect x="46" y="50" width="20" height="14" rx="2" fill="#1a1a1a"/>
+    <rect x="70" y="50" width="10" height="6" rx="1" fill="#e6192e"/>
+  </svg>
+</template>
+</head>
+<body class="text-gray-200">
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="phoogun/data.jsx"></script>
+<script type="text/babel" src="phoogun/sheets-api.jsx"></script>
+<script type="text/babel" src="phoogun/ui.jsx"></script>
+<script type="text/babel" src="phoogun/hero.jsx"></script>
+<script type="text/babel" src="phoogun/gallery.jsx"></script>
+<script type="text/babel" src="phoogun/sections.jsx"></script>
+<script type="text/babel" src="phoogun/admin-gallery.jsx"></script>
+<script type="text/babel" src="phoogun/admin-content.jsx"></script>
+<script type="text/babel" src="phoogun/admin-settings.jsx"></script>
+<script type="text/babel" src="phoogun/app.jsx"></script>
+</body>
+</html>

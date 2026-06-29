@@ -192,23 +192,50 @@ function _trCfg(r) {
     heroTitle: r.heroTitle||'มิติศิลปะบนเรือนร่าง', heroTitleEn: r.heroTitleEn||'Body Art Dimension',
     heroSub: r.heroSub||'สู่อนาคตที่หรูหราดุดัน', heroSubEn: r.heroSubEn||'A Cyberpunk Gothic Saga',
     heroDesc: r.heroDesc||'', heroDescEn: r.heroDescEn||'',
+    heroBtnBookTh: r.heroBtnBookTh||'จองคิวสักเลย', heroBtnBookEn: r.heroBtnBookEn||'Book Now',
+    heroBtnGalleryTh: r.heroBtnGalleryTh||'ดูผลงาน', heroBtnGalleryEn: r.heroBtnGalleryEn||'View Portfolio',
     aboutTitle: r.aboutTitle||'เกี่ยวกับ Phoogun Tattoo', aboutTitleEn: r.aboutTitleEn||'About Phoogun Tattoo',
     aboutText: r.aboutText||'', aboutTextEn: r.aboutTextEn||'', aboutImage: r.aboutImage||'',
-    mapUrl: r.mapUrl||'', fbPixel: r.fbPixel||'', ttPixel: r.ttPixel||'', adminPasscode: r.adminPasscode||'1337',
+    studioName: r.studioName||'Phoogun Tattoo', studioNameTh: r.studioNameTh||'ภูกัน แทตทู',
     studioHoursTh: r.studioHoursTh||'เปิด 12:00–21:00 น. (หยุดพฤหัสบดี)', studioHoursEn: r.studioHoursEn||'Open 12:00–21:00 (Closed Thursday)',
+    marqueeText: r.marqueeText||'',
+    mapUrl: r.mapUrl||'', fbPixel: r.fbPixel||'', ttPixel: r.ttPixel||'',
+    adminPasscode: r.adminPasscode||'1337',
+    bookingEnabled: r.bookingEnabled!=='FALSE', reviewEnabled: r.reviewEnabled!=='FALSE',
+    maintenanceMode: r.maintenanceMode==='TRUE',
     stats: [
       {val:r.stat1Val||'500+',th:r.stat1Th||'ผลงานสักสำเร็จ',en:r.stat1En||'Tattoos Completed'},
       {val:r.stat2Val||'8+',th:r.stat2Th||'ปีประสบการณ์',en:r.stat2En||'Years Experience'},
       {val:r.stat3Val||'4',th:r.stat3Th||'ช่างสักมืออาชีพ',en:r.stat3En||'Master Artists'},
       {val:r.stat4Val||'100%',th:r.stat4Th||'มาตรฐานโรงพยาบาล',en:r.stat4En||'Hospital Grade'},
     ],
-    social:{facebook:r.socialFacebook||'',instagram:r.socialInstagram||'',tiktok:r.socialTiktok||'',lineoa:r.socialLineoa||'',twitter:r.socialTwitter||'',phone:r.socialPhone||''},
+    social:{facebook:r.socialFacebook||'',instagram:r.socialInstagram||'',tiktok:r.socialTiktok||'',lineoa:r.socialLineoa||'',twitter:r.socialTwitter||'',phone:r.socialPhone||'',email:r.socialEmail||''},
   };
 }
-function _trImgs(rows){return(rows||[]).filter(r=>r.active!=='FALSE').map(r=>({id:r.id,albumId:r.albumId,categoryId:r.categoryId,title:r.title,artist:r.artistName||r.artist||'',tags:r.tags?r.tags.split(',').map(t=>t.trim()).filter(Boolean):[],imageUrl:r.imageUrl,featured:r.featured==='TRUE'||r.featured===true,likes:parseInt(r.likes)||0,description:r.description||''}))}
+function _trImgs(rows){return(rows||[]).filter(r=>r.active!=='FALSE').map(r=>({
+  id:r.id, albumId:r.albumId, categoryId:r.categoryId,
+  title:r.title, titleEn:r.titleEn||r.title||'',
+  artist:r.artistName||r.artist||'', artistId:r.artistId||'',
+  tags:r.tags?r.tags.split(',').map(t=>t.trim()).filter(Boolean):[],
+  imageUrl:r.imageUrl,
+  featured:r.featured==='TRUE'||r.featured===true,
+  likes:parseInt(r.likes)||0,
+  description:r.description||'', descriptionEn:r.descriptionEn||'',
+  placement:r.placement||'', placementEn:r.placementEn||'',
+  size:r.size||'', duration:r.duration||'', sessions:r.sessions||'',
+  price:r.price||'', priceNote:r.priceNote||'',
+}))}
 function _trCats(rows){return(rows||[]).filter(r=>r.active!=='FALSE').sort((a,b)=>parseInt(a.sortOrder||99)-parseInt(b.sortOrder||99)).map(r=>({id:r.id,nameTh:r.nameTh,nameEn:r.nameEn,slug:r.slug,descTh:r.descTh||'',color:r.color||''}))}
 function _trAlbs(rows){return(rows||[]).filter(r=>r.active!=='FALSE').sort((a,b)=>parseInt(a.sortOrder||99)-parseInt(b.sortOrder||99)).map(r=>({id:r.id,name:r.name,descTh:r.descTh||'',descEn:r.descEn||'',promoted:r.promoted==='TRUE'||r.promoted===true,cover:r.coverUrl||r.cover||''}))}
-function _trArts(rows){return(rows||[]).filter(r=>r.active!=='FALSE').sort((a,b)=>parseInt(a.sortOrder||99)-parseInt(b.sortOrder||99)).map(r=>({id:r.id,nameTh:r.nameTh,nameEn:r.nameEn,specialty:r.specialtyEn||r.specialty||'',experience:r.experience||'',bio_th:r.bio_th||'',imageUrl:r.imageUrl||'',available:r.availableTh||r.available||''}))}
+function _trArts(rows){return(rows||[]).filter(r=>r.active!=='FALSE').sort((a,b)=>parseInt(a.sortOrder||99)-parseInt(b.sortOrder||99)).map(r=>({
+  id:r.id, nameTh:r.nameTh, nameEn:r.nameEn,
+  specialty:r.specialtyEn||r.specialty||'', specialtyTh:r.specialtyTh||'',
+  experience:r.experience||'',
+  bio_th:r.bio_th||'', bio_en:r.bio_en||'',
+  imageUrl:r.imageUrl||'',
+  available:r.availableTh||r.available||'', availableEn:r.availableEn||'',
+  instagram:r.instagram||'',
+}))}
 function _trRevs(rows){return(rows||[]).map(r=>({id:r.id,author:r.author,rating:parseInt(r.rating)||5,message:r.message,artist:r.artist,service:r.service||'',status:r.status||'pending',createdAt:r.createdAt||'',adminReply:r.adminReply||'',featured:r.featured==='TRUE'}))}
 function _trHero(rows){return(rows||[]).filter(r=>r.active!=='FALSE').sort((a,b)=>parseInt(a.sortOrder||99)-parseInt(b.sortOrder||99)).map(r=>({image:r.imageUrl,label:r.label}))}
 

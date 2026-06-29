@@ -129,6 +129,7 @@ const DEFAULT_REVIEWS = [
 ];
 
 const DEFAULT_CONFIG = {
+  logoUrl: '',
   heroTitle: 'มิติศิลปะบนเรือนร่าง',
   heroTitleEn: 'Body Art Dimension',
   heroSub: 'สู่อนาคตที่หรูหราดุดัน',
@@ -1264,7 +1265,10 @@ function ContentCards({ lang, config, setConfig, toast }) {
   const saveAbout = () => { setConfig(local); updateConfig(local).catch(()=>{}); toast(tx(lang,'บันทึก About แล้ว','About saved'),'','success'); setModal(null); };
   const saveStats = () => { const next={...config,...local,stats:local.stats||stats}; setConfig(next); updateConfig(next).catch(()=>{}); toast(tx(lang,'บันทึกสถิติแล้ว','Stats saved'),'','success'); setModal(null); };
 
+  const saveLogo = () => { setConfig(local); updateConfig(local).catch(()=>{}); toast(tx(lang,'บันทึกโลโก้แล้ว','Logo saved'),'','success'); setModal(null); };
+
   const sections = [
+    { key:'logo', icon:'image', label:tx(lang,'โลโก้เว็บไซต์','Website Logo'), preview: config.logoUrl ? tx(lang,'มีโลโก้แล้ว ✓','Logo set ✓') : tx(lang,'ยังไม่มีโลโก้','No logo yet'), sub:tx(lang,'อัปโหลดโลโก้จากเครื่อง','Upload logo from device') },
     { key:'hero', icon:'promote', label:tx(lang,'Hero Section','Hero Section'), preview: tx(lang,config.heroTitle,config.heroTitleEn), sub:tx(lang,'หัวข้อ/subtitle/คำอธิบาย','Title/subtitle/description') },
     { key:'about', icon:'image', label:tx(lang,'About Section','About Section'), preview: tx(lang,config.aboutTitle,config.aboutTitleEn), sub:tx(lang,'หัวข้อ/เนื้อหา/รูปสตูดิโอ','Title/text/studio image') },
     { key:'stats', icon:'bar', label:tx(lang,'สถิติ 4 บล็อก','4 Stat Blocks'), preview: stats.map(s=>s.val).join(' · '), sub:tx(lang,'ตัวเลขและป้ายกำกับ','Numbers & labels') },
@@ -1286,6 +1290,13 @@ function ContentCards({ lang, config, setConfig, toast }) {
           </button>
         ))}
       </div>
+
+      {/* Logo Modal */}
+      <Modal open={modal==='logo'} onClose={()=>setModal(null)} icon="image" title={tx(lang,'โลโก้เว็บไซต์','Website Logo')}
+        footer={<><Btn onClick={saveLogo} variant="primary" size="sm"><Icon name="check" className="w-3.5 h-3.5"/>{tx(lang,'บันทึก','Save')}</Btn><Btn onClick={()=>setModal(null)} variant="ghost" size="sm">{tx(lang,'ยกเลิก','Cancel')}</Btn></>}>
+        <p className="text-xs text-gray-500">{tx(lang,'โลโก้นี้จะแสดงที่ navbar และหน้า admin','This logo appears in the navbar and admin panel')}</p>
+        <ImagePicker label={tx(lang,'อัปโหลดโลโก้','Upload Logo')} value={local.logoUrl||''} onChange={v=>lf('logoUrl',v)} lang={lang} previewClass="w-24 h-24 mx-auto rounded-full" />
+      </Modal>
 
       {/* Hero Modal */}
       <Modal open={modal==='hero'} onClose={()=>setModal(null)} icon="promote" title="Hero Section"
@@ -1907,7 +1918,9 @@ function App() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
               {/* Logo */}
               <button onClick={() => { scrollTo('hero'); setMobileMenuOpen(false); }} className="flex items-center gap-2 cursor-pointer shrink-0">
-                <PhoogunLogo size={36} />
+                {config.logoUrl
+                  ? <img src={config.logoUrl} alt="Phoogun Tattoo" className="w-9 h-9 rounded-full object-cover" />
+                  : <PhoogunLogo size={36} />}
                 <span className="font-heading tracking-[0.15em] text-base font-bold text-white uppercase hidden sm:block">Phoogun</span>
               </button>
               {/* Desktop nav links */}
@@ -2003,7 +2016,9 @@ function App() {
           <aside className="hidden md:flex w-56 shrink-0 bg-[#0a0a0a] border-r border-[#1a1a1a] flex-col sticky top-0 h-screen">
             <div className="p-5 border-b border-[#1a1a1a]">
               <div className="flex items-center gap-2.5">
-                <PhoogunLogo size={40} />
+                {config.logoUrl
+                  ? <img src={config.logoUrl} alt="logo" className="w-10 h-10 rounded-full object-cover" />
+                  : <PhoogunLogo size={40} />}
                 <div>
                   <div className="font-heading text-xs font-bold text-white uppercase tracking-wider">Phoogun</div>
                   <div className="font-mono text-[8px] text-crimson tracking-widest uppercase">CMS Backoffice</div>

@@ -285,6 +285,53 @@ function Textarea({ label, value, onChange, placeholder = '', rows = 3 }) {
   );
 }
 
+function ImagePicker({ label, value, onChange, lang, previewClass = 'w-full h-32' }) {
+  const fileRef = React.useRef();
+  const handleFile = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX = 1400;
+        const ratio = Math.min(MAX / img.width, MAX / img.height, 1);
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * ratio);
+        canvas.height = Math.round(img.height * ratio);
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        onChange(canvas.toDataURL('image/jpeg', 0.88));
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
+  const isBase64 = value && value.startsWith('data:');
+  return (
+    <div className="space-y-2">
+      <Micro className="block text-gray-500">{label}</Micro>
+      {value && <img src={value} referrerPolicy="no-referrer" alt="" className={`${previewClass} object-cover rounded-xl border border-[#222]`} onError={e=>e.target.style.display='none'} />}
+      <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} className="hidden" />
+      <button type="button" onClick={()=>fileRef.current.click()}
+        className="w-full border border-dashed border-[#333] hover:border-crimson/60 bg-black/40 hover:bg-crimson/5 text-gray-400 hover:text-crimson text-xs rounded-xl px-4 py-3 transition flex items-center justify-center gap-2 font-sans">
+        <Icon name="image" className="w-4 h-4" />
+        {tx(lang,'📁 อัปโหลดรูปจากเครื่อง','📁 Upload from device')}
+      </button>
+      {!isBase64 && (
+        <input type="text" value={value||''} onChange={e=>onChange(e.target.value)} placeholder={tx(lang,'หรือวางลิงค์รูปภาพ...','Or paste image URL...')}
+          className="w-full bg-black/60 border border-[#2a2a2a] focus:border-crimson/50 outline-none rounded-xl px-4 py-2.5 text-xs text-gray-400 placeholder:text-gray-600 transition font-sans" />
+      )}
+      {isBase64 && (
+        <button type="button" onClick={()=>onChange('')}
+          className="text-xs text-gray-600 hover:text-crimson transition font-sans">
+          {tx(lang,'✕ ลบรูปนี้','✕ Remove image')}
+        </button>
+      )}
+    </div>
+  );
+}
+
 // Toast hook
 function useToast() {
   const [toasts, setToasts] = useState([]);
@@ -953,7 +1000,7 @@ function ImagesGrid({ lang, images, setImages, albums, categories, toast }) {
   const close = () => setModal(null);
 
   const save = () => {
-    if (!form.title || !form.imageUrl) return toast(tx(lang,'กรอกชื่อและ URL','Fill title & URL'),'','warning');
+    if (!form.title || !form.imageUrl) return toast(tx(lang,'กรอกชื่อและรูปภาพ','Fill title & add an image'),'','warning');
     if (isEdit) {
       setImages(p=>p.map(i=>i.id===modal.id?{...i,...form,tags:tagsArr(form.tags)}:i));
       toast(tx(lang,'แก้ไขแล้ว','Updated'), form.title, 'success');
@@ -1002,8 +1049,7 @@ function ImagesGrid({ lang, images, setImages, albums, categories, toast }) {
           {isEdit && <Btn onClick={del} variant="danger" size="sm"><Icon name="trash" className="w-3.5 h-3.5"/>{tx(lang,'ลบ','Delete')}</Btn>}
           <Btn onClick={close} variant="ghost" size="sm">{tx(lang,'ยกเลิก','Cancel')}</Btn>
         </>}>
-        {form.imageUrl && <img src={form.imageUrl} alt="" className="w-full h-32 object-cover rounded-xl border border-[#222]" onError={e=>e.target.style.display='none'}/>}
-        <Input label="URL รูปภาพ" value={form.imageUrl} onChange={v=>f('imageUrl',v)} placeholder="https://..." />
+        <ImagePicker label={tx(lang,'รูปภาพผลงาน','Artwork Image')} value={form.imageUrl} onChange={v=>f('imageUrl',v)} lang={lang} />
         <div className="grid grid-cols-2 gap-3">
           <Input label={tx(lang,'ชื่อผลงาน','Title')} value={form.title} onChange={v=>f('title',v)} />
           <Input label={tx(lang,'ช่างสัก','Artist')} value={form.artist} onChange={v=>f('artist',v)} />
@@ -1093,10 +1139,9 @@ function AlbumsGrid({ lang, albums, setAlbums, images, toast }) {
           {isEdit && <Btn onClick={del} variant="danger" size="sm"><Icon name="trash" className="w-3.5 h-3.5"/>{tx(lang,'ลบ','Delete')}</Btn>}
           <Btn onClick={close} variant="ghost" size="sm">{tx(lang,'ยกเลิก','Cancel')}</Btn>
         </>}>
-        {form.cover && <img src={form.cover} alt="" className="w-full h-24 object-cover rounded-xl border border-[#222]" onError={e=>e.target.style.display='none'}/>}
         <Input label={tx(lang,'ชื่ออัลบั้ม','Album Name')} value={form.name} onChange={v=>f('name',v)} />
         <Textarea label={tx(lang,'คำอธิบาย','Description')} value={form.descTh} onChange={v=>f('descTh',v)} rows={2} />
-        <Input label={tx(lang,'URL รูปปก','Cover Image URL')} value={form.cover} onChange={v=>f('cover',v)} placeholder="https://..." />
+        <ImagePicker label={tx(lang,'รูปปกอัลบั้ม','Album Cover')} value={form.cover} onChange={v=>f('cover',v)} lang={lang} />
         <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-300">
           <input type="checkbox" checked={form.promoted} onChange={e=>f('promoted',e.target.checked)} className="accent-crimson" />
           {tx(lang,'โปรโมทใน Featured Strip','Show in Featured Strip')}
@@ -1198,7 +1243,7 @@ function ContentCards({ lang, config, setConfig, toast }) {
         <Input label={tx(lang,'หัวข้อ EN','Title EN')} value={local.aboutTitleEn} onChange={v=>lf('aboutTitleEn',v)} />
         <Textarea label={tx(lang,'เนื้อหา TH','Text TH')} value={local.aboutText} onChange={v=>lf('aboutText',v)} rows={3} />
         <Textarea label={tx(lang,'เนื้อหา EN','Text EN')} value={local.aboutTextEn} onChange={v=>lf('aboutTextEn',v)} rows={3} />
-        <Input label={tx(lang,'URL รูปสตูดิโอ','Studio Image URL')} value={local.aboutImage||''} onChange={v=>lf('aboutImage',v)} placeholder="https://..." />
+        <ImagePicker label={tx(lang,'รูปสตูดิโอ','Studio Image')} value={local.aboutImage||''} onChange={v=>lf('aboutImage',v)} lang={lang} />
       </Modal>
 
       {/* Stats Modal */}
@@ -1309,7 +1354,6 @@ function ArtistsCards({ lang, artists, setArtists, toast }) {
       <Modal open={!!modal} onClose={close} icon="eye"
         title={isEdit ? tx(lang,'แก้ไขช่างสัก','Edit Artist') : tx(lang,'เพิ่มช่างสัก','Add Artist')}
         footer={<><Btn onClick={save} variant="primary" size="sm"><Icon name="check" className="w-3.5 h-3.5"/>{isEdit?tx(lang,'บันทึก','Save'):tx(lang,'เพิ่ม','Add')}</Btn>{isEdit&&<Btn onClick={del} variant="danger" size="sm"><Icon name="trash" className="w-3.5 h-3.5"/>{tx(lang,'ลบ','Delete')}</Btn>}<Btn onClick={close} variant="ghost" size="sm">{tx(lang,'ยกเลิก','Cancel')}</Btn></>}>
-        {form.imageUrl && <img src={form.imageUrl} referrerPolicy="no-referrer" alt="" className="w-20 h-20 object-cover rounded-2xl border border-[#222] mx-auto" />}
         <div className="grid grid-cols-2 gap-3">
           <Input label={tx(lang,'ชื่อ TH','Name TH')} value={form.nameTh} onChange={v=>f('nameTh',v)} />
           <Input label={tx(lang,'ชื่อ EN','Name EN')} value={form.nameEn} onChange={v=>f('nameEn',v)} />
@@ -1320,7 +1364,7 @@ function ArtistsCards({ lang, artists, setArtists, toast }) {
           <Input label={tx(lang,'วันทำการ','Available')} value={form.available} onChange={v=>f('available',v)} placeholder="จ-ศ" />
         </div>
         <Textarea label={tx(lang,'ประวัติย่อ','Bio TH')} value={form.bio_th} onChange={v=>f('bio_th',v)} rows={2} />
-        <Input label="Image URL" value={form.imageUrl} onChange={v=>f('imageUrl',v)} placeholder="https://..." />
+        <ImagePicker label={tx(lang,'รูปช่างสัก','Artist Photo')} value={form.imageUrl} onChange={v=>f('imageUrl',v)} lang={lang} previewClass="w-24 h-24 mx-auto rounded-2xl" />
       </Modal>
     </>
   );

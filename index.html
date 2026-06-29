@@ -1053,19 +1053,19 @@ function ImagesGrid({ lang, images, setImages, albums, categories, toast }) {
     if (isEdit) {
       const updated = {...modal, ...row};
       setImages(p=>p.map(i=>i.id===modal.id ? updated : i));
-      saveToSheets('update','images',{...updated, tags:(updated.tags||[]).join(',')}, modal.id).catch(()=>{});
+      saveToSheets('update','images',{...updated, tags:(updated.tags||[]).join(',')}, modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'แก้ไขแล้ว','Updated'), form.title, 'success');
     } else {
       const newImg = {...row, id:`img${Date.now()}`};
       setImages(p=>[newImg,...p]);
-      saveToSheets('add','images',{...newImg, tags:(newImg.tags||[]).join(',')}).catch(()=>{});
+      saveToSheets('add','images',{...newImg, tags:(newImg.tags||[]).join(',')}).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'เพิ่มแล้ว','Added'), form.title, 'success');
     }
     close();
   };
 
   const del = () => {
-    saveToSheets('delete','images',{}, modal.id).catch(()=>{});
+    saveToSheets('delete','images',{}, modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
     setImages(p=>p.filter(i=>i.id!==modal.id));
     toast(tx(lang,'ลบแล้ว','Deleted'),'','info');
     close();
@@ -1156,17 +1156,17 @@ function AlbumsGrid({ lang, albums, setAlbums, images, toast }) {
     if (isEdit) {
       const updated = {...modal,...form};
       setAlbums(p=>p.map(a=>a.id===modal.id?updated:a));
-      saveToSheets('update','albums',updated,modal.id).catch(()=>{});
+      saveToSheets('update','albums',updated,modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'แก้ไขแล้ว','Updated'), form.name, 'success');
     } else {
       const newAlb = {...form,id:`a${Date.now()}`};
       setAlbums(p=>[...p,newAlb]);
-      saveToSheets('add','albums',newAlb).catch(()=>{});
+      saveToSheets('add','albums',newAlb).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'เพิ่มแล้ว','Added'), form.name, 'success');
     }
     close();
   };
-  const del = () => { saveToSheets('delete','albums',{},modal.id).catch(()=>{}); setAlbums(p=>p.filter(a=>a.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
+  const del = () => { saveToSheets('delete','albums',{},modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning')); setAlbums(p=>p.filter(a=>a.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
 
   return (
     <>
@@ -1350,17 +1350,17 @@ function CategoriesCards({ lang, categories, setCategories, toast }) {
     if (isEdit) {
       const updated = {...modal,...form};
       setCategories(p=>p.map(c=>c.id===modal.id?updated:c));
-      saveToSheets('update','categories',updated,modal.id).catch(()=>{});
+      saveToSheets('update','categories',updated,modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'แก้ไขแล้ว','Updated'), form.nameTh,'success');
     } else {
       const newCat = {...form,id:`c${Date.now()}`,slug:form.nameEn.toLowerCase().replace(/\s+/g,'-')};
       setCategories(p=>[...p,newCat]);
-      saveToSheets('add','categories',newCat).catch(()=>{});
+      saveToSheets('add','categories',newCat).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'เพิ่มแล้ว','Added'), form.nameTh,'success');
     }
     close();
   };
-  const del = () => { saveToSheets('delete','categories',{},modal.id).catch(()=>{}); setCategories(p=>p.filter(c=>c.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
+  const del = () => { saveToSheets('delete','categories',{},modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning')); setCategories(p=>p.filter(c=>c.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
 
   return (
     <>
@@ -1406,17 +1406,17 @@ function ArtistsCards({ lang, artists, setArtists, toast }) {
     if (isEdit) {
       const updated = {...modal,...form};
       setArtists(p=>p.map(a=>a.id===modal.id?updated:a));
-      saveToSheets('update','artists',updated,modal.id).catch(()=>{});
+      saveToSheets('update','artists',updated,modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'แก้ไขแล้ว','Updated'), form.nameTh,'success');
     } else {
       const newArt = {...form,id:`art${Date.now()}`};
       setArtists(p=>[...p,newArt]);
-      saveToSheets('add','artists',newArt).catch(()=>{});
+      saveToSheets('add','artists',newArt).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'เพิ่มแล้ว','Added'), form.nameTh,'success');
     }
     close();
   };
-  const del = () => { saveToSheets('delete','artists',{},modal.id).catch(()=>{}); setArtists(p=>p.filter(a=>a.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
+  const del = () => { saveToSheets('delete','artists',{},modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning')); setArtists(p=>p.filter(a=>a.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
 
   return (
     <>
@@ -1839,12 +1839,18 @@ function App() {
       try {
         const d = await loadAllFromSheets();
         if (cancelled) return;
-        setImages(d.images);
-        setAlbums(d.albums);
-        setCategories(d.categories);
-        setArtists(d.artists);
-        setReviews(d.reviews);
-        setConfig(d.config);
+        // Only overwrite state if Sheets actually has data — never wipe localStorage with empty arrays
+        if (d.images && d.images.length > 0) setImages(d.images);
+        if (d.albums && d.albums.length > 0) setAlbums(d.albums);
+        if (d.categories && d.categories.length > 0) setCategories(d.categories);
+        if (d.artists && d.artists.length > 0) setArtists(d.artists);
+        setReviews(d.reviews || []);
+        // Merge config: Sheets data wins for text, but preserve localStorage base64 uploads
+        setConfig(prev => ({
+          ...d.config,
+          logoUrl: d.config.logoUrl || prev.logoUrl || '',
+          aboutImage: d.config.aboutImage || prev.aboutImage || '',
+        }));
         if (d.heroSlides && d.heroSlides.length > 0) {
           setHeroSlides(d.heroSlides);
           lsSet(LS_KEYS.heroSlides, d.heroSlides);

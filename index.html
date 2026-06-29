@@ -1753,6 +1753,56 @@ const lsSet = (k, v) => {
 
 // Data already in scope from data layer above
 
+function PhoogunLogo({ size = 36 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#1a0a0a"/>
+          <stop offset="100%" stopColor="#050505"/>
+        </radialGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="1.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      {/* Outer ring */}
+      <circle cx="50" cy="50" r="48" fill="url(#bgGrad)" stroke="#e6192e" strokeWidth="1.5"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#3a0808" strokeWidth="0.5"/>
+      {/* Cross lines */}
+      <line x1="50" y1="6" x2="50" y2="20" stroke="#e6192e" strokeWidth="0.8" opacity="0.7"/>
+      <line x1="50" y1="80" x2="50" y2="94" stroke="#e6192e" strokeWidth="0.8" opacity="0.7"/>
+      <line x1="6" y1="50" x2="20" y2="50" stroke="#e6192e" strokeWidth="0.8" opacity="0.7"/>
+      <line x1="80" y1="50" x2="94" y2="50" stroke="#e6192e" strokeWidth="0.8" opacity="0.7"/>
+      {/* Diagonal lines */}
+      <line x1="15" y1="15" x2="24" y2="24" stroke="#e6192e" strokeWidth="0.6" opacity="0.5"/>
+      <line x1="76" y1="76" x2="85" y2="85" stroke="#e6192e" strokeWidth="0.6" opacity="0.5"/>
+      <line x1="85" y1="15" x2="76" y2="24" stroke="#e6192e" strokeWidth="0.6" opacity="0.5"/>
+      <line x1="15" y1="85" x2="24" y2="76" stroke="#e6192e" strokeWidth="0.6" opacity="0.5"/>
+      {/* Spider/insect body */}
+      <ellipse cx="50" cy="50" rx="5" ry="7" fill="#e6192e" filter="url(#glow)"/>
+      <ellipse cx="50" cy="44" rx="4" ry="3.5" fill="#cc0000"/>
+      {/* 8 legs */}
+      <line x1="45" y1="47" x2="28" y2="38" stroke="#c0c0c0" strokeWidth="1.2" strokeLinecap="round"/>
+      <line x1="45" y1="50" x2="27" y2="50" stroke="#c0c0c0" strokeWidth="1.2" strokeLinecap="round"/>
+      <line x1="45" y1="53" x2="28" y2="62" stroke="#c0c0c0" strokeWidth="1.2" strokeLinecap="round"/>
+      <line x1="47" y1="56" x2="36" y2="68" stroke="#c0c0c0" strokeWidth="1" strokeLinecap="round"/>
+      <line x1="55" y1="47" x2="72" y2="38" stroke="#c0c0c0" strokeWidth="1.2" strokeLinecap="round"/>
+      <line x1="55" y1="50" x2="73" y2="50" stroke="#c0c0c0" strokeWidth="1.2" strokeLinecap="round"/>
+      <line x1="55" y1="53" x2="72" y2="62" stroke="#c0c0c0" strokeWidth="1.2" strokeLinecap="round"/>
+      <line x1="53" y1="56" x2="64" y2="68" stroke="#c0c0c0" strokeWidth="1" strokeLinecap="round"/>
+      {/* Text: PHOOGUN */}
+      <text x="50" y="30" textAnchor="middle" fontFamily="serif" fontWeight="900" fontSize="10.5" fill="white" letterSpacing="2" style={{fontStyle:'italic'}}>PHOOGUN</text>
+      {/* Dashes around PHOOGUN */}
+      <line x1="8" y1="27" x2="17" y2="27" stroke="#e6192e" strokeWidth="1"/>
+      <line x1="83" y1="27" x2="92" y2="27" stroke="#e6192e" strokeWidth="1"/>
+      {/* Text: TATTOO */}
+      <text x="50" y="73" textAnchor="middle" fontFamily="serif" fontWeight="700" fontSize="8" fill="#e6192e" letterSpacing="3">TATTOO</text>
+      {/* Text: CUSTOM */}
+      <text x="50" y="82" textAnchor="middle" fontFamily="sans-serif" fontWeight="400" fontSize="4.5" fill="#888" letterSpacing="2.5">CUSTOM TATTOO</text>
+      {/* Corner dots */}
+      {[22,78].map(x=>[22,78].map(y=><circle key={`${x}${y}`} cx={x} cy={y} r="1" fill="#e6192e" opacity="0.6"/>))}
+    </svg>
+  );
+}
+
 function App() {
   const [mode, setMode] = useState('public');
   const [lang, setLang] = useState(() => localStorage.getItem('phg2_lang') || 'TH');
@@ -1856,9 +1906,9 @@ function App() {
           <nav className="sticky top-0 z-40 bg-[#080808]/98 backdrop-blur border-b border-[#1a1a1a]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
               {/* Logo */}
-              <button onClick={() => { scrollTo('hero'); setMobileMenuOpen(false); }} className="flex items-center gap-2.5 cursor-pointer shrink-0">
-                <span className="w-8 h-8 rounded-tr-md rounded-bl-md bg-crimson flex items-center justify-center font-heading font-bold text-white shadow-[0_0_12px_rgba(230,25,46,0.5)]">P</span>
-                <span className="font-heading tracking-[0.15em] text-base font-bold text-white uppercase">Phoogun</span>
+              <button onClick={() => { scrollTo('hero'); setMobileMenuOpen(false); }} className="flex items-center gap-2 cursor-pointer shrink-0">
+                <PhoogunLogo size={36} />
+                <span className="font-heading tracking-[0.15em] text-base font-bold text-white uppercase hidden sm:block">Phoogun</span>
               </button>
               {/* Desktop nav links */}
               <div className="hidden md:flex gap-6 text-xs font-heading uppercase tracking-widest">
@@ -1953,7 +2003,7 @@ function App() {
           <aside className="hidden md:flex w-56 shrink-0 bg-[#0a0a0a] border-r border-[#1a1a1a] flex-col sticky top-0 h-screen">
             <div className="p-5 border-b border-[#1a1a1a]">
               <div className="flex items-center gap-2.5">
-                <span className="w-8 h-8 rounded-tr-md rounded-bl-md bg-crimson flex items-center justify-center font-heading text-sm font-bold text-white">P</span>
+                <PhoogunLogo size={40} />
                 <div>
                   <div className="font-heading text-xs font-bold text-white uppercase tracking-wider">Phoogun</div>
                   <div className="font-mono text-[8px] text-crimson tracking-widest uppercase">CMS Backoffice</div>

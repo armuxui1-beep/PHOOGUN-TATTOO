@@ -1288,11 +1288,43 @@ function ContentCards({ lang, config, setConfig, toast }) {
     {val:'100%',th:'มาตรฐานโรงพยาบาล',en:'Hospital Grade'},
   ];
 
-  const saveHero = () => { setConfig(local); updateConfig(local).catch(()=>{}); toast(tx(lang,'บันทึก Hero แล้ว','Hero saved'),'','success'); setModal(null); };
-  const saveAbout = () => { setConfig(local); updateConfig(local).catch(()=>{}); toast(tx(lang,'บันทึก About แล้ว','About saved'),'','success'); setModal(null); };
-  const saveStats = () => { const next={...config,...local,stats:local.stats||stats}; setConfig(next); updateConfig(next).catch(()=>{}); toast(tx(lang,'บันทึกสถิติแล้ว','Stats saved'),'','success'); setModal(null); };
+  const _sheetsErr = e => toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'), e.message, 'warning');
 
-  const saveLogo = () => { setConfig(local); updateConfig(local).catch(()=>{}); toast(tx(lang,'บันทึกโลโก้แล้ว','Logo saved'),'','success'); setModal(null); };
+  const saveHero = () => {
+    setConfig(local);
+    updateConfig({
+      heroTitle:local.heroTitle, heroTitleEn:local.heroTitleEn,
+      heroSub:local.heroSub, heroSubEn:local.heroSubEn,
+      heroDesc:local.heroDesc, heroDescEn:local.heroDescEn,
+    }).catch(_sheetsErr);
+    toast(tx(lang,'บันทึก Hero แล้ว','Hero saved'),'','success'); setModal(null);
+  };
+  const saveAbout = () => {
+    setConfig(local);
+    updateConfig({
+      aboutTitle:local.aboutTitle, aboutTitleEn:local.aboutTitleEn,
+      aboutText:local.aboutText, aboutTextEn:local.aboutTextEn,
+      aboutImage:local.aboutImage||'',
+    }).catch(_sheetsErr);
+    toast(tx(lang,'บันทึก About แล้ว','About saved'),'','success'); setModal(null);
+  };
+  const saveStats = () => {
+    const next={...config,...local,stats:local.stats||stats};
+    setConfig(next);
+    const s=next.stats;
+    updateConfig({
+      stat1Val:s[0]?.val||'', stat1Th:s[0]?.th||'', stat1En:s[0]?.en||'',
+      stat2Val:s[1]?.val||'', stat2Th:s[1]?.th||'', stat2En:s[1]?.en||'',
+      stat3Val:s[2]?.val||'', stat3Th:s[2]?.th||'', stat3En:s[2]?.en||'',
+      stat4Val:s[3]?.val||'', stat4Th:s[3]?.th||'', stat4En:s[3]?.en||'',
+    }).catch(_sheetsErr);
+    toast(tx(lang,'บันทึกสถิติแล้ว','Stats saved'),'','success'); setModal(null);
+  };
+  const saveLogo = () => {
+    setConfig(local);
+    updateConfig({ logoUrl:local.logoUrl||'' }).catch(_sheetsErr);
+    toast(tx(lang,'บันทึกโลโก้แล้ว','Logo saved'),'','success'); setModal(null);
+  };
 
   const sections = [
     { key:'logo', icon:'image', label:tx(lang,'โลโก้เว็บไซต์','Website Logo'), preview: config.logoUrl ? tx(lang,'มีโลโก้แล้ว ✓','Logo set ✓') : tx(lang,'ยังไม่มีโลโก้','No logo yet'), sub:tx(lang,'อัปโหลดโลโก้จากเครื่อง','Upload logo from device') },
@@ -1561,14 +1593,27 @@ function AdminSettings({ lang, config, setConfig, images, reviews, albums, categ
   const [localMap, setLocalMap] = useState(config.mapUrl || '');
   const [tab, setTab] = useState('analytics');
 
+  const _sErr = e => toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'), e.message, 'warning');
+
   const savePixels = () => {
     setConfig(p => ({ ...p, fbPixel: localPixel.fb, ttPixel: localPixel.tt }));
+    updateConfig({ fbPixel: localPixel.fb, ttPixel: localPixel.tt }).catch(_sErr);
     injectPixels(localPixel.fb, localPixel.tt);
     toast('บันทึก Pixel แล้ว', `FB: ${localPixel.fb || 'ว่าง'} · TT: ${localPixel.tt || 'ว่าง'}`, 'success');
   };
 
   const saveSocial = () => {
     setConfig(p => ({ ...p, social: localSocial, mapUrl: localMap }));
+    updateConfig({
+      socialFacebook:  localSocial.facebook  || '',
+      socialInstagram: localSocial.instagram || '',
+      socialTiktok:    localSocial.tiktok    || '',
+      socialLineoa:    localSocial.lineoa    || '',
+      socialTwitter:   localSocial.twitter   || '',
+      socialPhone:     localSocial.phone     || '',
+      socialEmail:     localSocial.email     || '',
+      mapUrl:          localMap,
+    }).catch(_sErr);
     toast('บันทึกข้อมูลติดต่อแล้ว', 'อัปเดตโซเชียลและแผนที่เรียบร้อย', 'success');
   };
 

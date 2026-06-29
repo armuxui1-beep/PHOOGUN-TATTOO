@@ -1973,6 +1973,20 @@ function App() {
 
   useEffect(() => {localStorage.setItem('phg2_lang', lang);}, [lang]);
 
+  const _defaultFavicon = useRef(null);
+  useEffect(() => {
+    const el = document.querySelector("link[rel='icon']");
+    if (!el) return;
+    if (!_defaultFavicon.current) _defaultFavicon.current = { href: el.href, type: el.type };
+    if (config.logoUrl) {
+      el.type = 'image/png';
+      el.href = config.logoUrl;
+    } else {
+      el.type = _defaultFavicon.current.type;
+      el.href = _defaultFavicon.current.href;
+    }
+  }, [config.logoUrl]);
+
   const login = (code) => {
     const storedCode = config.adminPasscode || '1337';
     if (code === storedCode || code.toLowerCase() === 'admin') {

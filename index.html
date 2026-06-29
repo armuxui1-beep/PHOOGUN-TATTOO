@@ -169,12 +169,59 @@ window.PHG_DATA = {
 
 
 
-// ── Sheets API stubs (configure via Admin → Pixel & ติดต่อ) ──
-const SHEETS_URL = '';
-async function loadAllFromSheets() { throw new Error('Sheets not configured'); }
-async function saveToSheets() { return { ok: true }; }
-async function submitReview(r) { return { ok: true }; }
-async function submitBooking(b) { return { ok: true }; }
+// ── Google Sheets API (phoogun-75d84 backend) ──────────────
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbweh4Jewfok29bh5-JtU9DkyY33WFxVK6XGtniWUXhIVCsiAJL_4dJIkTP6BXegOcJS0Q/exec';
+
+async function sheetsGet(sheet, params = {}) {
+  const url = new URL(SHEETS_URL);
+  url.searchParams.set('sheet', sheet);
+  Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
+  const res = await fetch(url.toString());
+  const json = await res.json();
+  if (!json.ok) throw new Error(json.error || 'API error');
+  return json.data;
+}
+async function sheetsPost(body) {
+  const res = await fetch(SHEETS_URL, { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } });
+  return await res.json();
+}
+function _trCfg(r) {
+  r = r || {};
+  return {
+    heroTitle: r.heroTitle||'มิติศิลปะบนเรือนร่าง', heroTitleEn: r.heroTitleEn||'Body Art Dimension',
+    heroSub: r.heroSub||'สู่อนาคตที่หรูหราดุดัน', heroSubEn: r.heroSubEn||'A Cyberpunk Gothic Saga',
+    heroDesc: r.heroDesc||'', heroDescEn: r.heroDescEn||'',
+    aboutTitle: r.aboutTitle||'เกี่ยวกับ Phoogun Tattoo', aboutTitleEn: r.aboutTitleEn||'About Phoogun Tattoo',
+    aboutText: r.aboutText||'', aboutTextEn: r.aboutTextEn||'', aboutImage: r.aboutImage||'',
+    mapUrl: r.mapUrl||'', fbPixel: r.fbPixel||'', ttPixel: r.ttPixel||'', adminPasscode: r.adminPasscode||'1337',
+    studioHoursTh: r.studioHoursTh||'เปิด 12:00–21:00 น. (หยุดพฤหัสบดี)', studioHoursEn: r.studioHoursEn||'Open 12:00–21:00 (Closed Thursday)',
+    stats: [
+      {val:r.stat1Val||'500+',th:r.stat1Th||'ผลงานสักสำเร็จ',en:r.stat1En||'Tattoos Completed'},
+      {val:r.stat2Val||'8+',th:r.stat2Th||'ปีประสบการณ์',en:r.stat2En||'Years Experience'},
+      {val:r.stat3Val||'4',th:r.stat3Th||'ช่างสักมืออาชีพ',en:r.stat3En||'Master Artists'},
+      {val:r.stat4Val||'100%',th:r.stat4Th||'มาตรฐานโรงพยาบาล',en:r.stat4En||'Hospital Grade'},
+    ],
+    social:{facebook:r.socialFacebook||'',instagram:r.socialInstagram||'',tiktok:r.socialTiktok||'',lineoa:r.socialLineoa||'',twitter:r.socialTwitter||'',phone:r.socialPhone||''},
+  };
+}
+function _trImgs(rows){return(rows||[]).filter(r=>r.active!=='FALSE').map(r=>({id:r.id,albumId:r.albumId,categoryId:r.categoryId,title:r.title,artist:r.artistName||r.artist||'',tags:r.tags?r.tags.split(',').map(t=>t.trim()).filter(Boolean):[],imageUrl:r.imageUrl,featured:r.featured==='TRUE'||r.featured===true,likes:parseInt(r.likes)||0,description:r.description||''}))}
+function _trCats(rows){return(rows||[]).filter(r=>r.active!=='FALSE').sort((a,b)=>parseInt(a.sortOrder||99)-parseInt(b.sortOrder||99)).map(r=>({id:r.id,nameTh:r.nameTh,nameEn:r.nameEn,slug:r.slug,descTh:r.descTh||'',color:r.color||''}))}
+function _trAlbs(rows){return(rows||[]).filter(r=>r.active!=='FALSE').sort((a,b)=>parseInt(a.sortOrder||99)-parseInt(b.sortOrder||99)).map(r=>({id:r.id,name:r.name,descTh:r.descTh||'',descEn:r.descEn||'',promoted:r.promoted==='TRUE'||r.promoted===true,cover:r.coverUrl||r.cover||''}))}
+function _trArts(rows){return(rows||[]).filter(r=>r.active!=='FALSE').sort((a,b)=>parseInt(a.sortOrder||99)-parseInt(b.sortOrder||99)).map(r=>({id:r.id,nameTh:r.nameTh,nameEn:r.nameEn,specialty:r.specialtyEn||r.specialty||'',experience:r.experience||'',bio_th:r.bio_th||'',imageUrl:r.imageUrl||'',available:r.availableTh||r.available||''}))}
+function _trRevs(rows){return(rows||[]).map(r=>({id:r.id,author:r.author,rating:parseInt(r.rating)||5,message:r.message,artist:r.artist,service:r.service||'',status:r.status||'pending',createdAt:r.createdAt||'',adminReply:r.adminReply||'',featured:r.featured==='TRUE'}))}
+function _trHero(rows){return(rows||[]).filter(r=>r.active!=='FALSE').sort((a,b)=>parseInt(a.sortOrder||99)-parseInt(b.sortOrder||99)).map(r=>({image:r.imageUrl,label:r.label}))}
+
+async function loadAllFromSheets() {
+  const [cfg,imgs,cats,albs,arts,revs,hero] = await Promise.all([
+    sheetsGet('config'),sheetsGet('images'),sheetsGet('categories'),
+    sheetsGet('albums'),sheetsGet('artists'),sheetsGet('reviews'),sheetsGet('hero_slides'),
+  ]);
+  return {config:_trCfg(cfg),images:_trImgs(imgs),categories:_trCats(cats),albums:_trAlbs(albs),artists:_trArts(arts),reviews:_trRevs(revs),heroSlides:_trHero(hero)};
+}
+async function saveToSheets(action, sheet, row, id) { return sheetsPost({action, sheet, row, id}); }
+async function updateConfig(updates) { return sheetsPost({action:'setConfig', updates}); }
+async function submitReview(row) { return sheetsPost({action:'submitReview', row}); }
+async function submitBooking(row) { return sheetsPost({action:'submitBooking', row}); }
 
 
 // ── UI PRIMITIVES ────────────────────────────────────────
@@ -1001,17 +1048,23 @@ function ImagesGrid({ lang, images, setImages, albums, categories, toast }) {
 
   const save = () => {
     if (!form.title || !form.imageUrl) return toast(tx(lang,'กรอกชื่อและรูปภาพ','Fill title & add an image'),'','warning');
+    const row = {...form, tags: tagsArr(form.tags)};
     if (isEdit) {
-      setImages(p=>p.map(i=>i.id===modal.id?{...i,...form,tags:tagsArr(form.tags)}:i));
+      const updated = {...modal, ...row};
+      setImages(p=>p.map(i=>i.id===modal.id ? updated : i));
+      saveToSheets('update','images',{...updated, tags:(updated.tags||[]).join(',')}, modal.id).catch(()=>{});
       toast(tx(lang,'แก้ไขแล้ว','Updated'), form.title, 'success');
     } else {
-      setImages(p=>[{...form,id:`img${Date.now()}`,tags:tagsArr(form.tags)},...p]);
+      const newImg = {...row, id:`img${Date.now()}`};
+      setImages(p=>[newImg,...p]);
+      saveToSheets('add','images',{...newImg, tags:(newImg.tags||[]).join(',')}).catch(()=>{});
       toast(tx(lang,'เพิ่มแล้ว','Added'), form.title, 'success');
     }
     close();
   };
 
   const del = () => {
+    saveToSheets('delete','images',{}, modal.id).catch(()=>{});
     setImages(p=>p.filter(i=>i.id!==modal.id));
     toast(tx(lang,'ลบแล้ว','Deleted'),'','info');
     close();
@@ -1099,11 +1152,20 @@ function AlbumsGrid({ lang, albums, setAlbums, images, toast }) {
   const close = () => setModal(null);
   const save = () => {
     if (!form.name) return;
-    if (isEdit) { setAlbums(p=>p.map(a=>a.id===modal.id?{...a,...form}:a)); toast(tx(lang,'แก้ไขแล้ว','Updated'), form.name, 'success'); }
-    else { setAlbums(p=>[...p,{...form,id:`a${Date.now()}`}]); toast(tx(lang,'เพิ่มแล้ว','Added'), form.name, 'success'); }
+    if (isEdit) {
+      const updated = {...modal,...form};
+      setAlbums(p=>p.map(a=>a.id===modal.id?updated:a));
+      saveToSheets('update','albums',updated,modal.id).catch(()=>{});
+      toast(tx(lang,'แก้ไขแล้ว','Updated'), form.name, 'success');
+    } else {
+      const newAlb = {...form,id:`a${Date.now()}`};
+      setAlbums(p=>[...p,newAlb]);
+      saveToSheets('add','albums',newAlb).catch(()=>{});
+      toast(tx(lang,'เพิ่มแล้ว','Added'), form.name, 'success');
+    }
     close();
   };
-  const del = () => { setAlbums(p=>p.filter(a=>a.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
+  const del = () => { saveToSheets('delete','albums',{},modal.id).catch(()=>{}); setAlbums(p=>p.filter(a=>a.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
 
   return (
     <>
@@ -1198,9 +1260,9 @@ function ContentCards({ lang, config, setConfig, toast }) {
     {val:'100%',th:'มาตรฐานโรงพยาบาล',en:'Hospital Grade'},
   ];
 
-  const saveHero = () => { setConfig(local); toast(tx(lang,'บันทึก Hero แล้ว','Hero saved'),'','success'); setModal(null); };
-  const saveAbout = () => { setConfig(local); toast(tx(lang,'บันทึก About แล้ว','About saved'),'','success'); setModal(null); };
-  const saveStats = () => { setConfig({...config,...local,stats:local.stats||stats}); toast(tx(lang,'บันทึกสถิติแล้ว','Stats saved'),'','success'); setModal(null); };
+  const saveHero = () => { setConfig(local); updateConfig(local).catch(()=>{}); toast(tx(lang,'บันทึก Hero แล้ว','Hero saved'),'','success'); setModal(null); };
+  const saveAbout = () => { setConfig(local); updateConfig(local).catch(()=>{}); toast(tx(lang,'บันทึก About แล้ว','About saved'),'','success'); setModal(null); };
+  const saveStats = () => { const next={...config,...local,stats:local.stats||stats}; setConfig(next); updateConfig(next).catch(()=>{}); toast(tx(lang,'บันทึกสถิติแล้ว','Stats saved'),'','success'); setModal(null); };
 
   const sections = [
     { key:'hero', icon:'promote', label:tx(lang,'Hero Section','Hero Section'), preview: tx(lang,config.heroTitle,config.heroTitleEn), sub:tx(lang,'หัวข้อ/subtitle/คำอธิบาย','Title/subtitle/description') },
@@ -1274,11 +1336,20 @@ function CategoriesCards({ lang, categories, setCategories, toast }) {
   const close = () => setModal(null);
   const save = () => {
     if (!form.nameTh) return;
-    if (isEdit) { setCategories(p=>p.map(c=>c.id===modal.id?{...c,...form}:c)); toast(tx(lang,'แก้ไขแล้ว','Updated'), form.nameTh,'success'); }
-    else { setCategories(p=>[...p,{...form,id:`c${Date.now()}`,slug:form.nameEn.toLowerCase().replace(/\s+/g,'-')}]); toast(tx(lang,'เพิ่มแล้ว','Added'), form.nameTh,'success'); }
+    if (isEdit) {
+      const updated = {...modal,...form};
+      setCategories(p=>p.map(c=>c.id===modal.id?updated:c));
+      saveToSheets('update','categories',updated,modal.id).catch(()=>{});
+      toast(tx(lang,'แก้ไขแล้ว','Updated'), form.nameTh,'success');
+    } else {
+      const newCat = {...form,id:`c${Date.now()}`,slug:form.nameEn.toLowerCase().replace(/\s+/g,'-')};
+      setCategories(p=>[...p,newCat]);
+      saveToSheets('add','categories',newCat).catch(()=>{});
+      toast(tx(lang,'เพิ่มแล้ว','Added'), form.nameTh,'success');
+    }
     close();
   };
-  const del = () => { setCategories(p=>p.filter(c=>c.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
+  const del = () => { saveToSheets('delete','categories',{},modal.id).catch(()=>{}); setCategories(p=>p.filter(c=>c.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
 
   return (
     <>
@@ -1321,11 +1392,20 @@ function ArtistsCards({ lang, artists, setArtists, toast }) {
   const close = () => setModal(null);
   const save = () => {
     if (!form.nameTh) return;
-    if (isEdit) { setArtists(p=>p.map(a=>a.id===modal.id?{...a,...form}:a)); toast(tx(lang,'แก้ไขแล้ว','Updated'), form.nameTh,'success'); }
-    else { setArtists(p=>[...p,{...form,id:`art${Date.now()}`}]); toast(tx(lang,'เพิ่มแล้ว','Added'), form.nameTh,'success'); }
+    if (isEdit) {
+      const updated = {...modal,...form};
+      setArtists(p=>p.map(a=>a.id===modal.id?updated:a));
+      saveToSheets('update','artists',updated,modal.id).catch(()=>{});
+      toast(tx(lang,'แก้ไขแล้ว','Updated'), form.nameTh,'success');
+    } else {
+      const newArt = {...form,id:`art${Date.now()}`};
+      setArtists(p=>[...p,newArt]);
+      saveToSheets('add','artists',newArt).catch(()=>{});
+      toast(tx(lang,'เพิ่มแล้ว','Added'), form.nameTh,'success');
+    }
     close();
   };
-  const del = () => { setArtists(p=>p.filter(a=>a.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
+  const del = () => { saveToSheets('delete','artists',{},modal.id).catch(()=>{}); setArtists(p=>p.filter(a=>a.id!==modal.id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); close(); };
 
   return (
     <>
@@ -1660,7 +1740,16 @@ function injectPixels(fbId, ttId) {
 // ============================================================
 const LS_KEYS = { images: 'phg2_images', albums: 'phg2_albums', categories: 'phg2_categories', artists: 'phg2_artists', reviews: 'phg2_reviews', config: 'phg2_config', heroSlides: 'phg2_heroSlides' };
 const lsGet = (k, def) => {try {const v = localStorage.getItem(k);return v ? JSON.parse(v) : def;} catch {return def;}};
-const lsSet = (k, v) => {try {localStorage.setItem(k, JSON.stringify(v));} catch {}};
+const lsSet = (k, v) => {
+  try {
+    localStorage.setItem(k, JSON.stringify(v));
+    return true;
+  } catch(e) {
+    console.warn('localStorage full:', e.message);
+    window._lsWarn = true;
+    return false;
+  }
+};
 
 // Data already in scope from data layer above
 

@@ -136,11 +136,24 @@ const DEFAULT_CONFIG = {
   heroSubEn: 'A Cyberpunk Gothic Saga',
   heroDesc: 'PHOOGUN TATTOO ผสานลายสักแบบไซเบอร์แบล็คเวิร์ค ฟอนต์อักขระกอธิค และนีโออิเรซูมิ สู่ผลงานระดับพรีเมียมด้วยเครื่องมือมาตรฐานโรงพยาบาล',
   heroDescEn: 'PHOOGUN TATTOO blends cyber-blackwork, gothic typography, and Neo-Irezumi into timeless relics crafted with medical-grade precision.',
+  heroBtnBookTh: 'จองคิวสักเลย',
+  heroBtnBookEn: 'Book Now',
+  heroBtnGalleryTh: 'ดูผลงาน',
+  heroBtnGalleryEn: 'View Portfolio',
   aboutTitle: 'เกี่ยวกับ Phoogun Tattoo',
   aboutTitleEn: 'About Phoogun Tattoo',
   aboutText: 'สตูดิโอสักระดับพรีเมียมในกรุงเทพฯ ที่ผสานศิลปะดาร์กสไตล์กับเทคนิคระดับสูง ใช้อุปกรณ์สะอาดปลอดเชื้อมาตรฐานการแพทย์ทุกครั้ง',
   aboutTextEn: 'Premium Bangkok tattoo studio blending dark art with master technique, using hospital-grade sterile equipment on every client.',
   aboutImage: '',
+  studioName: 'Phoogun Tattoo',
+  studioNameTh: 'ภูกัน แทตทู',
+  studioHoursTh: 'เปิด 12:00–21:00 น. (หยุดพฤหัสบดี)',
+  studioHoursEn: 'Open 12:00–21:00 (Closed Thursday)',
+  marqueeText: '',
+  adminPasscode: '1337',
+  bookingEnabled: true,
+  reviewEnabled: true,
+  maintenanceMode: false,
   stats: [
     { val: '500+', th: 'ผลงานสักสำเร็จ', en: 'Tattoos Completed' },
     { val: '8+', th: 'ปีประสบการณ์', en: 'Years Experience' },
@@ -150,7 +163,7 @@ const DEFAULT_CONFIG = {
   mapUrl: '',
   fbPixel: '',
   ttPixel: '',
-  social: { facebook: '', instagram: '', tiktok: '', lineoa: '', twitter: '', phone: '' },
+  social: { facebook: '', instagram: '', tiktok: '', lineoa: '', twitter: '', phone: '', email: '' },
 };
 
 // Hero carousel slides
@@ -1080,12 +1093,12 @@ function ImagesGrid({ lang, images, setImages, albums, categories, toast }) {
     if (isEdit) {
       const updated = {...modal, ...row};
       setImages(p=>p.map(i=>i.id===modal.id ? updated : i));
-      saveToSheets('update','images',{...updated, tags:(updated.tags||[]).join(',')}, modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
+      saveToSheets('update','images',{...updated, artistName:updated.artist, tags:(updated.tags||[]).join(',')}, modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'แก้ไขแล้ว','Updated'), form.title, 'success');
     } else {
       const newImg = {...row, id:`img${Date.now()}`};
       setImages(p=>[newImg,...p]);
-      saveToSheets('add','images',{...newImg, tags:(newImg.tags||[]).join(',')}).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
+      saveToSheets('add','images',{...newImg, artistName:newImg.artist, tags:(newImg.tags||[]).join(',')}).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'เพิ่มแล้ว','Added'), form.title, 'success');
     }
     close();
@@ -1183,12 +1196,12 @@ function AlbumsGrid({ lang, albums, setAlbums, images, toast }) {
     if (isEdit) {
       const updated = {...modal,...form};
       setAlbums(p=>p.map(a=>a.id===modal.id?updated:a));
-      saveToSheets('update','albums',updated,modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
+      saveToSheets('update','albums',{...updated, coverUrl:updated.cover},modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'แก้ไขแล้ว','Updated'), form.name, 'success');
     } else {
       const newAlb = {...form,id:`a${Date.now()}`};
       setAlbums(p=>[...p,newAlb]);
-      saveToSheets('add','albums',newAlb).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
+      saveToSheets('add','albums',{...newAlb, coverUrl:newAlb.cover}).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'เพิ่มแล้ว','Added'), form.name, 'success');
     }
     close();
@@ -1465,12 +1478,12 @@ function ArtistsCards({ lang, artists, setArtists, toast }) {
     if (isEdit) {
       const updated = {...modal,...form};
       setArtists(p=>p.map(a=>a.id===modal.id?updated:a));
-      saveToSheets('update','artists',updated,modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
+      saveToSheets('update','artists',{...updated, specialtyEn:updated.specialty, availableTh:updated.available},modal.id).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'แก้ไขแล้ว','Updated'), form.nameTh,'success');
     } else {
       const newArt = {...form,id:`art${Date.now()}`};
       setArtists(p=>[...p,newArt]);
-      saveToSheets('add','artists',newArt).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
+      saveToSheets('add','artists',{...newArt, specialtyEn:newArt.specialty, availableTh:newArt.available}).catch(e=>toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'),e.message,'warning'));
       toast(tx(lang,'เพิ่มแล้ว','Added'), form.nameTh,'success');
     }
     close();
@@ -1523,9 +1536,10 @@ function ArtistsCards({ lang, artists, setArtists, toast }) {
 // ── Review Cards ──────────────────────────────────────────
 function ReviewCards({ lang, reviews, setReviews, toast }) {
   const [modal, setModal] = useState(null);
-  const approve = id => { setReviews(p=>p.map(r=>r.id===id?{...r,status:'approved'}:r)); toast(tx(lang,'อนุมัติแล้ว','Approved'),'','success'); setModal(null); };
-  const reject = id => { setReviews(p=>p.map(r=>r.id===id?{...r,status:'rejected'}:r)); toast(tx(lang,'ปฏิเสธแล้ว','Rejected'),'','info'); setModal(null); };
-  const del = id => { setReviews(p=>p.filter(r=>r.id!==id)); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); setModal(null); };
+  const _rErr = e => toast(tx(lang,'⚠ Sheets ไม่ตอบสนอง','⚠ Sheets unreachable'), e.message, 'warning');
+  const approve = id => { setReviews(p=>p.map(r=>r.id===id?{...r,status:'approved'}:r)); saveToSheets('update','reviews',{status:'approved'},id).catch(_rErr); toast(tx(lang,'อนุมัติแล้ว','Approved'),'','success'); setModal(null); };
+  const reject = id => { setReviews(p=>p.map(r=>r.id===id?{...r,status:'rejected'}:r)); saveToSheets('update','reviews',{status:'rejected'},id).catch(_rErr); toast(tx(lang,'ปฏิเสธแล้ว','Rejected'),'','info'); setModal(null); };
+  const del = id => { setReviews(p=>p.filter(r=>r.id!==id)); saveToSheets('delete','reviews',{},id).catch(_rErr); toast(tx(lang,'ลบแล้ว','Deleted'),'','info'); setModal(null); };
 
   const counts = { pending:reviews.filter(r=>r.status==='pending').length, approved:reviews.filter(r=>r.status==='approved').length };
 
@@ -1776,8 +1790,8 @@ function AdminSettings({ lang, config, setConfig, images, reviews, albums, categ
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Panel className="p-6 space-y-4">
             <Micro className="text-crimson/80">{tx(lang,'ลิงก์โซเชียลมีเดีย','Social Media Links')}</Micro>
-            {[['facebook','Facebook Page URL'],['instagram','Instagram URL'],['tiktok','TikTok Profile URL'],['lineoa','LINE OA URL'],['twitter','X / Twitter URL'],['phone',tx(lang,'เบอร์โทร','Phone Number')]].map(([k,lbl]) => (
-              <Input key={k} label={lbl} value={localSocial[k]||''} onChange={v => setLocalSocial(p=>({...p,[k]:v}))} placeholder={k==='phone'?'0812345678':'https://...'} />
+            {[['facebook','Facebook Page URL'],['instagram','Instagram URL'],['tiktok','TikTok Profile URL'],['lineoa','LINE OA URL'],['twitter','X / Twitter URL'],['phone',tx(lang,'เบอร์โทร','Phone Number')],['email','Email']].map(([k,lbl]) => (
+              <Input key={k} label={lbl} value={localSocial[k]||''} onChange={v => setLocalSocial(p=>({...p,[k]:v}))} placeholder={k==='phone'?'0812345678':k==='email'?'info@phoogun.com':'https://...'} />
             ))}
           </Panel>
           <Panel className="p-6 space-y-4">
